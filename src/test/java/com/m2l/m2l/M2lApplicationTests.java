@@ -1,4 +1,4 @@
-package fr.m2l.m2l;
+package com.m2l.m2l;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

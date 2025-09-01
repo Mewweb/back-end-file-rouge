@@ -1,4 +1,4 @@
-package fr.m2l.m2l;
+package com.m2l.m2l;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
