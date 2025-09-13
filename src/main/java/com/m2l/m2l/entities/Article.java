@@ -1,9 +1,11 @@
 package com.m2l.m2l.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,41 +18,27 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Builder
 @RequiredArgsConstructor
-public class Book {
+public class Article {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	private Integer id;
 	@NonNull
 	@NotEmpty
-	String number_isbn;
+	@Size(min=1, max=50)
+	private String title;
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=255)
-	String style;
+	@Lob
+	@Min(20)
+	@Column(columnDefinition = "TEXT", nullable = true)
+	private String summary;
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=255)
-	String image;
-	@NotEmpty
-	@NonNull
-	@Size(min=3, max=10)
-	String format;
-	@NotEmpty
-	@NonNull
-	@Min(0)
-	@Max(1000)
-	Integer stock;
-	@NotEmpty
-	@NonNull
-	@Size(min=2, max=200)
-	String title;
-	@NonNull
-	@NotEmpty
-	@Size(min=2, max=30)
-	String editor;
+	@Max(255)
+	private String reference;
 }

@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,39 +16,19 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Entity
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-public class Book {
+public class Facture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
-	@NonNull
-	@NotEmpty
-	String number_isbn;
-	@NonNull
-	@NotEmpty
-	@Size(min=3, max=255)
-	String style;
-	@NonNull
-	@NotEmpty
-	@Size(min=3, max=255)
-	String image;
+	private Integer id;
 	@NotEmpty
 	@NonNull
-	@Size(min=3, max=10)
-	String format;
+	@Size(min=1, max=255)
+	private String numberString;
 	@NotEmpty
 	@NonNull
-	@Min(0)
-	@Max(1000)
-	Integer stock;
-	@NotEmpty
-	@NonNull
-	@Size(min=2, max=200)
-	String title;
-	@NonNull
-	@NotEmpty
-	@Size(min=2, max=30)
-	String editor;
+	@Size(min=1,max=255)
+	private String pdf;
 }

@@ -4,10 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,36 +19,26 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Book {
+public class Article_commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-	@NonNull
-	@NotEmpty
-	String number_isbn;
-	@NonNull
-	@NotEmpty
-	@Size(min=3, max=255)
-	String style;
-	@NonNull
-	@NotEmpty
-	@Size(min=3, max=255)
-	String image;
 	@NotEmpty
 	@NonNull
-	@Size(min=3, max=10)
-	String format;
+	@Positive
+
+	Integer quantite;
 	@NotEmpty
 	@NonNull
-	@Min(0)
-	@Max(1000)
-	Integer stock;
+	@Positive
+	Float price_ht;
 	@NotEmpty
 	@NonNull
-	@Size(min=2, max=200)
-	String title;
-	@NonNull
+	@Positive
+	Float price_ttc;
 	@NotEmpty
-	@Size(min=2, max=30)
-	String editor;
+	@NonNull
+	@Positive
+	Float total_price;
+	
 }
