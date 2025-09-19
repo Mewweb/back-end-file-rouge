@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -40,5 +42,8 @@ public class Article_commande {
 	@NonNull
 	@Positive
 	Float total_price;
-	
+	@ManyToOne
+	@NonNull
+	@JoinColumn(name="command_id", nullable=false)
+	Commande commande;
 }

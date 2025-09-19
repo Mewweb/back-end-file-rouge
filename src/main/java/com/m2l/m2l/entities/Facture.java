@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -22,13 +24,17 @@ import lombok.RequiredArgsConstructor;
 public class Facture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	Integer id;
 	@NotEmpty
 	@NonNull
 	@Size(min=1, max=255)
-	private String numberString;
+	String numberString;
 	@NotEmpty
 	@NonNull
 	@Size(min=1,max=255)
-	private String pdf;
+	String pdf;
+	@ManyToOne
+	@NonNull
+	@JoinColumn(name="facture_id", nullable = false)
+	Commande commande;
 }
