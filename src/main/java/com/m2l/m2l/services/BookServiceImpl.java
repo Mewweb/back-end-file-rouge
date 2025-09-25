@@ -2,6 +2,8 @@ package com.m2l.m2l.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.m2l.m2l.entities.Book;
@@ -20,6 +22,12 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<Book> findAll(){
 		return bookRepository.findAll();
+	}
+	
+	@Override
+	public Page<Book> findBooks(int offset, int pageSize){
+		Page<Book> books = bookRepository.findAll(PageRequest.of(offset, pageSize));
+		return books;
 	}
 	
 	@Override

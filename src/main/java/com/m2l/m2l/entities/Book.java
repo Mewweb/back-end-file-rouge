@@ -1,6 +1,9 @@
 package com.m2l.m2l.entities;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -50,6 +53,9 @@ public class Book {
 	@Size(min=3, max=255)
 	String style;
 	@NonNull
+	@DateTimeFormat(pattern="DD-MM-YYYY")
+	LocalDate date;
+	@NonNull
 	@NotEmpty
 	@Size(min=3, max=255)
 	String image;
@@ -70,14 +76,5 @@ public class Book {
 	@NonNull
 	@JoinColumn(name="article_id", nullable = false)
 	Article article;
-	/*@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinTable(
-		    name = "book_author",  // <-- change ici
-		    joinColumns = @JoinColumn(name = "book_id"),
-		    inverseJoinColumns = @JoinColumn(name = "author_id")
-		)
-    @JsonIgnoreProperties("books")
-	@NotNull
-	List<Author> authors;*/
 	
 }

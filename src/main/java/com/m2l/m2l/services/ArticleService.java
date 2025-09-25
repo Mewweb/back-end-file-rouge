@@ -7,5 +7,5 @@ import com.m2l.m2l.entities.Article;
 public interface ArticleService {
 	List<Article> findAll();
 	
-	Article save(Article article);
+	List<Article> saveAll(List<Article> articles);
 }
