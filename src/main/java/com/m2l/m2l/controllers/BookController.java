@@ -22,14 +22,14 @@ public class BookController {
 	
 	@GetMapping("/{offset}/{pageSize}")
 	public ResponseEntity<Page<Book>> findAll(@PathVariable int offset, @PathVariable int pageSize){
-		Page<Book> allBooks = bookService.findBookActive(offset, pageSize);
+		Page<Book> allBooks = bookService.findActiveBooks(offset, pageSize);
 		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);
 	}
 	
 	
 	@GetMapping("/lastBook")
 	public ResponseEntity<Page<Book>> findThreeLastBook(){
-		Page<Book> allBooks = bookService.findThreeLastBook();
+		Page<Book> allBooks = bookService.findActiveBooks(0,3);
 		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);
 	}
 

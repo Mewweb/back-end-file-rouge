@@ -1,6 +1,7 @@
 package com.m2l.m2l.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -70,6 +71,12 @@ public class Book {
 	
 	@Default
 	Boolean active = false;
+	
+	@Default
+	LocalDateTime addDate = LocalDateTime.now();
+	
+	@Default
+	LocalDateTime editDate = LocalDateTime.now();
 	
 	@JsonIgnoreProperties("books")
 	@NonNull

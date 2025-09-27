@@ -9,9 +9,7 @@ import com.m2l.m2l.entities.Book;
 public interface BookService {
 	List<Book> findAll();
 	
-	Page<Book> findThreeLastBook();
-	
-	Page<Book> findBookActive(int offset, int pageSize);
+	Page<Book> findActiveBooks(int offset, int pageSize);
 	
 	Book findById(int id);
 	
