@@ -25,6 +25,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Builder.Default;
 
 @Entity
 @Data
@@ -53,7 +54,7 @@ public class Book {
 	@Size(min=3, max=255)
 	String style;
 	@NonNull
-	@DateTimeFormat(pattern="DD-MM-YYYY")
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	LocalDate date;
 	@NonNull
 	@NotEmpty
@@ -67,6 +68,9 @@ public class Book {
 	@NotEmpty
 	String number_isbn;
 	
+	@Default
+	Boolean active = false;
+	
 	@JsonIgnoreProperties("books")
 	@NonNull
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
@@ -77,4 +81,5 @@ public class Book {
 	@JoinColumn(name="article_id", nullable = false)
 	Article article;
 	
+
 }

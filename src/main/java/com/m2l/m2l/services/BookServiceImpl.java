@@ -25,8 +25,14 @@ public class BookServiceImpl implements BookService{
 	}
 	
 	@Override
-	public Page<Book> findBooks(int offset, int pageSize){
-		Page<Book> books = bookRepository.findAll(PageRequest.of(offset, pageSize));
+	public Page<Book> findBookActive(int offset, int pageSize){
+		Page<Book> books = bookRepository.findByActive(true, PageRequest.of(offset, pageSize));
+		return books;
+	}
+	
+	@Override
+	public Page<Book> findThreeLastBook(){
+		Page<Book> books = bookRepository.findByActiveOrderByDateDesc(true, PageRequest.of(0,3));
 		return books;
 	}
 	
