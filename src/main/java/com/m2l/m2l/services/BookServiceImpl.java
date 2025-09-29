@@ -31,6 +31,12 @@ public class BookServiceImpl implements BookService{
 	}
 	
 	@Override
+	public Page<Book> searchBooks(String title, int offset, int pageSize){
+		Page<Book> books = bookRepository.findByActiveAndTitleContainingIgnoreCase(true, title, PageRequest.of(offset, pageSize));
+		return books;
+	}
+	
+	@Override
 	public Book findById(int id) {
 		return bookRepository.findById(id).orElse(null);
 	}

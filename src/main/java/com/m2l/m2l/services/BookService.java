@@ -11,6 +11,8 @@ public interface BookService {
 	
 	Page<Book> findActiveBooks(int offset, int pageSize);
 	
+	Page<Book> searchBooks(String title, int offset, int pageSize);
+	
 	Book findById(int id);
 	
 	Book save(Book book);

@@ -10,4 +10,5 @@ import com.m2l.m2l.entities.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer>{	
 	Page<Book> findByActiveOrderByAddDateDesc(Boolean active, Pageable pageable);
+	Page<Book> findByActiveAndTitleContainingIgnoreCase(Boolean active, String title, Pageable pageable);
 }

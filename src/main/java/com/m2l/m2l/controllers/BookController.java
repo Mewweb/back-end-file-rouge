@@ -26,6 +26,11 @@ public class BookController {
 		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);
 	}
 	
+	@GetMapping("/{offset}/{pageSize}/{title}")
+	public ResponseEntity<Page<Book>> searchBooks(@PathVariable String title, @PathVariable int offset, @PathVariable int pageSize){
+		Page<Book> allBooks = bookService.searchBooks(title.replaceAll("(?i)_", " "), offset, pageSize);
+		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);
+	}
 	
 	@GetMapping("/lastBook")
 	public ResponseEntity<Page<Book>> findThreeLastBook(){
