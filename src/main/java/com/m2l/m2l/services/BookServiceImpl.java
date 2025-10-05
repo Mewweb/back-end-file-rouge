@@ -1,5 +1,8 @@
 package com.m2l.m2l.services;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -32,8 +35,15 @@ public class BookServiceImpl implements BookService{
 	
 	@Override
 	public Page<Book> searchBooks(String title, int offset, int pageSize){
-		Page<Book> books = bookRepository.findByActiveAndTitleContainingIgnoreCase(true, title, PageRequest.of(offset, pageSize));
-		return books;
+		try {
+			String urlSearch = URLDecoder.decode(title, StandardCharsets.UTF_8.name());
+			System.out.println(urlSearch);
+			Page<Book> books = bookRepository.findByActiveAndTitleContainingIgnoreCase(true, urlSearch, PageRequest.of(offset, pageSize));
+			return books;
+		}catch(UnsupportedEncodingException e) {
+			System.out.println(e);
+			return null;
+		}
 	}
 	
 	@Override

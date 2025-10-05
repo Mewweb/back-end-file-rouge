@@ -59,8 +59,7 @@ public class User {
 	@NonNull
 	@Size(min=2, max=100)
 	String adresse_livraison;
-	@JsonIgnoreProperties("articles")
-	@NonNull
+	@JsonIgnoreProperties("books")
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	List<Article> articles;
+	List<Book> books;
 }

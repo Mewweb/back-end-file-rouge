@@ -9,11 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
@@ -44,6 +46,12 @@ public class Book {
 	String title;
 	@NonNull
 	@NotEmpty
+	@Lob
+	@Size(min=20)
+	@Column(columnDefinition= "TEXT")
+	String synopsis;
+	@NonNull
+	@NotEmpty
 	@Size(min=2, max=30)
 	String editor;
 	@NonNull
@@ -61,32 +69,24 @@ public class Book {
 	@NotEmpty
 	@Size(min=3, max=255)
 	String image;
-	@NotEmpty
-	@NonNull
-	@Size(min=3, max=10)
-	String format;
 	@NonNull
 	@NotEmpty
 	String number_isbn;
-	
 	@Default
 	Boolean active = false;
-	
 	@Default
 	LocalDateTime addDate = LocalDateTime.now();
-	
 	@Default
 	LocalDateTime editDate = LocalDateTime.now();
-	
 	@JsonIgnoreProperties("books")
 	@NonNull
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	List<Author> authors;
-	
+	@JsonIgnoreProperties("users")
+	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	List<User> users;
 	@ManyToOne
 	@NonNull
 	@JoinColumn(name="article_id", nullable = false)
 	Article article;
-	
-
 }
