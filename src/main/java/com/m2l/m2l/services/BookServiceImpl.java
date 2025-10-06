@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService{
 		try {
 			String urlSearch = URLDecoder.decode(title, StandardCharsets.UTF_8.name());
 			System.out.println(urlSearch);
-			Page<Book> books = bookRepository.findByActiveAndTitleContainingIgnoreCase(true, urlSearch, PageRequest.of(offset, pageSize));
+			Page<Book> books = bookRepository.searchActiveBooksByTitleOrEditorOrStyleOrAuthors(true, urlSearch, PageRequest.of(offset, pageSize));
 			return books;
 		}catch(UnsupportedEncodingException e) {
 			System.out.println(e);
