@@ -1,9 +1,7 @@
 package com.m2l.m2l.services;
 
 import java.util.List;
-
 import org.springframework.data.domain.Page;
-
 import com.m2l.m2l.entities.Book;
 
 public interface BookService {
@@ -11,9 +9,11 @@ public interface BookService {
 	
 	Page<Book> findActiveBooks(int offset, int pageSize);
 	
-	Page<Book> searchBooks(String title, int offset, int pageSize);
+	//Page<Book> searchBooks(String title, int offset, int pageSize);
 	
 	Book findById(int id);
 	
 	Book save(Book book);
+	
+	List<Book> saveAll(List<Book> books);
 }

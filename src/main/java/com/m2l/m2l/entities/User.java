@@ -1,9 +1,7 @@
 package com.m2l.m2l.entities;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -59,7 +57,8 @@ public class User {
 	@NonNull
 	@Size(min=2, max=100)
 	String adresse_livraison;
-	@JsonIgnoreProperties("books")
+	@JsonIgnoreProperties("users")
+	@NonNull
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	List<Book> books;
+	List<Article> articles;
 }

@@ -1,15 +1,17 @@
 package com.m2l.m2l.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,27 +19,27 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Data
 @Entity
-@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @RequiredArgsConstructor
-public class Commande {
+public class Editor{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+	@NonNull
 	@NotEmpty
+	@Size(min=2, max=50)
+	String title;
 	@NonNull
-	@Min(1)
-	@Max(100)
-	Integer number;
 	@NotEmpty
+	@Lob
+	@Size(min=20)
+	@Column(columnDefinition = "TEXT")
+	String description;
 	@NonNull
-	Date date;
-	@ManyToOne
-	@NonNull
-	@JoinColumn(name="user_id", nullable = false)
-	User user;
-	
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	LocalDate date;
 }
