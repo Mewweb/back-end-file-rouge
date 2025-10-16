@@ -3,6 +3,7 @@ package com.m2l.m2l.services;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import com.m2l.m2l.entities.Book;
+import com.m2l.m2l.request.BookRequest;
 
 public interface BookService {
 	List<Book> findAll();
@@ -15,5 +16,9 @@ public interface BookService {
 	
 	Book save(Book book);
 	
+	Book createBook(BookRequest book);
+	
 	List<Book> saveAll(List<Book> books);
+	
+	
 }

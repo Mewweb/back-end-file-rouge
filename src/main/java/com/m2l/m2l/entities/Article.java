@@ -41,6 +41,9 @@ public class Article {
 	@NonNull
 	@Size(min=3, max=20)
 	String format;
+	@NonNull
+	@NotEmpty
+	String number_isbn;
 	@Default
 	@NonNull
 	Boolean active = false;

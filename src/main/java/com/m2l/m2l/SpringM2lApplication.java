@@ -83,7 +83,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 				.style("Science-fiction")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("sdfqsd")
-				.number_isbn("qsdff")
 				.authors(List.of(author))
 				.active(true)
 				.build();
@@ -95,7 +94,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 				.style("Science-fiction")
 				.date(LocalDate.parse("1962-12-07"))
 				.image("sdfqsd")
-				.number_isbn("qsdff")
 				.authors(List.of(author))
 				.active(true)
 				.build();
@@ -107,7 +105,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 				.style("Science-fiction")
 				.date(LocalDate.parse("1965-12-07"))
 				.image("sdfqsd")
-				.number_isbn("qsdff")
 				.authors(List.of(author1))
 				.active(true)
 				.build();
@@ -119,7 +116,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 				.style("Drame")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("sdfqsd")
-				.number_isbn("qsdff")
 				.authors(List.of(author2))
 				.build();
 		
@@ -132,6 +128,7 @@ public class SpringM2lApplication implements ApplicationRunner{
 					.active(true)
 					.editor(editor2)
 					.book(book)
+					.number_isbn("qsdff")
 					.build());
 			
 			articleService.save(Article.builder()
@@ -140,6 +137,7 @@ public class SpringM2lApplication implements ApplicationRunner{
 					.active(true)
 					.editor(editor1)
 					.book(book1)
+					.number_isbn("qsdff")
 					.build());
 			
 			articleService.save(Article.builder()
@@ -148,6 +146,8 @@ public class SpringM2lApplication implements ApplicationRunner{
 					.active(true)
 					.editor(editor1)
 					.book(book1)
+					.number_isbn("qsdff")
+
 					.build());
 			
 			articleService.save(Article.builder()
@@ -156,6 +156,7 @@ public class SpringM2lApplication implements ApplicationRunner{
 					.active(true)
 					.editor(editor)
 					.book(book2)
+					.number_isbn("qsdff")
 					.build());
 			
 			articleService.save(Article.builder()
@@ -164,6 +165,7 @@ public class SpringM2lApplication implements ApplicationRunner{
 					.active(true)
 					.editor(editor2)
 					.book(book3)
+					.number_isbn("qsdff")
 					.build());
 		}
 	}	

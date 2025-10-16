@@ -53,16 +53,12 @@ public class Book {
 	@NotEmpty
 	@Size(min=3, max=255)
 	String style;
-	@NonNull
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	LocalDate date;
 	@NonNull
 	@NotEmpty
 	@Size(min=3, max=255)
 	String image;
-	@NonNull
-	@NotEmpty
-	String number_isbn;
 	@Default
 	Boolean active = false;
 	@Default
