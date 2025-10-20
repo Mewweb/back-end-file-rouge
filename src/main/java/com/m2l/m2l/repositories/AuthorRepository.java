@@ -10,12 +10,12 @@ import com.m2l.m2l.entities.Author;
 
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 	@Query("""
-			SELECT DISTINCT CONCAT(firstname, ' ', lastname) FROM Author a
+			SELECT DISTINCT id,CONCAT(firstname, ' ', lastname) FROM Author a
 			""")
 	Page<Author> selectNameAuthor(Pageable pageable);
 	
 	@Query(""" 
-			SELECT DISTINCT CONCAT(firstname, ' ', lastname) FROM Author a WHERE 
+			SELECT DISTINCT id, CONCAT(firstname, ' ', lastname) FROM Author a WHERE 
 			LOWER(CONCAT(a.lastname, ' ', a.firstname)) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			OR LOWER(CONCAT(a.firstname, ' ', a.lastname)) LIKE LOWER(CONCAT('%', :keyword,'%'))
 			""")

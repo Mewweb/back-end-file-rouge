@@ -2,6 +2,8 @@ package com.m2l.m2l.services;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.request.BookRequest;
 
@@ -16,7 +18,7 @@ public interface BookService {
 	
 	Book save(Book book);
 	
-	Book createBook(BookRequest book);
+	ResponseEntity<Book> createBook(BookRequest book);
 	
 	List<Book> saveAll(List<Book> books);
 	

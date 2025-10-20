@@ -1,6 +1,7 @@
 package com.m2l.m2l.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2l.m2l.entities.Book;
+import com.m2l.m2l.request.BookRequest;
 import com.m2l.m2l.services.BookService;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +22,9 @@ public class BookController{
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Book addBook(@RequestBody Book book) {
-		return bookService.save(book);
+	public ResponseEntity<Book> addBook(@RequestBody BookRequest book) {
+		
+		return bookService.createBook(book);
 	}
 	
 }

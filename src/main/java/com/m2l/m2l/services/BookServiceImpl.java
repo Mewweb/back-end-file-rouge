@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -61,7 +62,8 @@ public class BookServiceImpl implements BookService{
 		return bookRepository.save(book);
 	}
 	
-	public Book createBook(@RequestBody BookRequest request) {
+	public ResponseEntity<Book> createBook(@RequestBody BookRequest request) {
+		System.out.println(request.getAuthorsId());
 		List<Author> authors = authorRepository.findAllById(request.getAuthorsId());
 		if(authors.isEmpty()) {
 			throw new RuntimeException("No authors found with provided IDs");
@@ -71,11 +73,12 @@ public class BookServiceImpl implements BookService{
 				.synopsis(request.getSynopsis())
 				.stock(request.getStock())
 				.style(request.getStyle())
-				.date(request.getDate())
 				.image(request.getImage())
+				.date(request.getDate())
 				.authors(authors)
 				.build();
-		return bookRepository.save(book);
+		Book savedBook = bookRepository.save(book);
+		return ResponseEntity.ok(savedBook);
 	}	
 	
 	@Override
