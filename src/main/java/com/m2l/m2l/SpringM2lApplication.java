@@ -7,11 +7,17 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.m2l.m2l.configuration.RsaKeyProperties;
 import com.m2l.m2l.entities.Article;
 import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.Editor;
+import com.m2l.m2l.entities.User;
+import com.m2l.m2l.enums.Role;
+import com.m2l.m2l.repositories.UserRepository;
 import com.m2l.m2l.services.ArticleService;
 import com.m2l.m2l.services.AuthorService;
 import com.m2l.m2l.services.BookService;
@@ -21,15 +27,20 @@ import lombok.AllArgsConstructor;
 
 @SpringBootApplication
 @AllArgsConstructor
+@EnableConfigurationProperties(RsaKeyProperties.class)
 public class SpringM2lApplication implements ApplicationRunner{
 	private BookService bookService;
 	private AuthorService authorService;
 	private ArticleService articleService;
 	private EditorService editorService;
+	private UserRepository userRepository;
+	private PasswordEncoder encoder;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringM2lApplication.class, args);
 	}
+	
+	
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception{
@@ -56,6 +67,19 @@ public class SpringM2lApplication implements ApplicationRunner{
 		
 		authorService.saveAll(List.of(author, author1, author2, author3));
 		
+		User user = User.builder()
+				.lastname("Doe")
+				.firstname("John")
+				.phone_number("06 05 04 03 02")
+				.email("test@test.fr")
+				.password(encoder.encode("test@test.fr"))
+				.billing_address("66 rue des avenues")
+				.delivery_address("44 rue des avenues")
+				.role(Role.USER)
+				.build();
+		userRepository.save(user);
+				
+		
 		Editor editor = Editor.builder()
 				.title("J'ai lu")
 				.description("Lorem ipsum dolor sit amet consectetur adipisicing elit.")
@@ -75,6 +99,8 @@ public class SpringM2lApplication implements ApplicationRunner{
 				.build();
 		
 		editorService.saveAll(List.of(editor, editor1, editor2));
+		
+		
 		
 		Book book = Book.builder()
 				.title("Les robots")
