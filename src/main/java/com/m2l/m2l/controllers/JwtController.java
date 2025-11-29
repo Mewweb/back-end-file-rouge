@@ -1,15 +1,22 @@
 package com.m2l.m2l.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2l.m2l.dto.JwtResponseDto;
 import com.m2l.m2l.dto.UserRequestDto;
 import com.m2l.m2l.entities.User;
+import com.m2l.m2l.enums.Role;
 import com.m2l.m2l.services.TokenService;
 import com.m2l.m2l.services.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +27,7 @@ public class JwtController {
 
     private TokenService tokenService;
     private UserService userService;
+    private PasswordEncoder encoder;
 
     @PostMapping("/authenticate")
     public JwtResponseDto authenticate(@RequestBody UserRequestDto userDto) {
@@ -43,6 +51,17 @@ public class JwtController {
         return null;
     }
     
-
-
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User register(@RequestBody User user) {
+    	user.setRole(Role.USER);
+    	user.setPassword(encoder.encode(user.getPassword()));
+    	return userService.save(user);
+    }
+    
+    @GetMapping("/getUser")
+    public ResponseEntity<User> getUser(HttpServletRequest request){
+    	System.out.println(request);
+    	return null;
+    }
 }
