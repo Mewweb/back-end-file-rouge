@@ -1,17 +1,11 @@
 package com.m2l.m2l.entities;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.m2l.m2l.enums.Role;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -62,8 +56,8 @@ public class User {
 	String delivery_address;
 	@NonNull
 	Role role;
-	@JsonIgnoreProperties("users")
+	/*@JsonIgnoreProperties("users")
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	List<Article> articles;
+	List<Article> articles;*/
 	
 }

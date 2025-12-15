@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -21,14 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -36,9 +33,6 @@ import lombok.AllArgsConstructor;
 @EnableMethodSecurity(securedEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig {
-
-    private UserDetailsService userDetailsService;
-
     private RsaKeyProperties rsaKeyProperties;
 
     @Bean
@@ -56,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.GET,"/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cartItem/panier/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // connexion sans état
                                                                                                   // : aucune donnée
@@ -72,8 +67,8 @@ public class SecurityConfig {
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.publicKey()).build();
     }
-    // bean qui permet d'encoder les jetons
 
+    // bean qui permet d'encoder les jetons
     @Bean
     JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(rsaKeyProperties.publicKey()).privateKey(rsaKeyProperties.privateKey()).build();
@@ -85,7 +80,6 @@ public class SecurityConfig {
     // il est possible de changer ça avec le bean suivant
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
-
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         // pour spécifier un rôle dans @Secured, on veut qu'il soit préfixé par ROLE_
         jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
@@ -95,6 +89,7 @@ public class SecurityConfig {
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
+
     // Pour configurer le CORS
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -108,5 +103,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 }

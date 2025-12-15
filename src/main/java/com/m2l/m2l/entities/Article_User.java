@@ -1,6 +1,5 @@
 package com.m2l.m2l.entities;
 
-import java.sql.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,8 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,25 +17,28 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Builder
 @RequiredArgsConstructor
-public class Commande {
+public class Article_User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-	@NotEmpty
 	@NonNull
-	@Min(1)
-	@Max(100)
-	Integer number;
 	@NotEmpty
-	@NonNull
-	Date date;
 	@ManyToOne
+	@JoinColumn(name = "user_id", nullable= false)
+	User user;
+	@NotEmpty
 	@NonNull
-	@JoinColumn(name="user_id", nullable = false)
-	User user;	
+	@ManyToOne
+	@JoinColumn(name = "article_id", nullable = false)
+	Article article;
+	@NonNull
+	@NotEmpty
+	@Positive
+	@Max(1000)
+	Integer quantite;
 }

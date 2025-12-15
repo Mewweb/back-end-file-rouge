@@ -23,10 +23,8 @@ public class BookController{
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Book> addBook(@RequestBody BookRequest book) {
-		
 		return bookService.createBook(book);
 	}
-	
 }
 
 /*import org.springframework.data.domain.Page;

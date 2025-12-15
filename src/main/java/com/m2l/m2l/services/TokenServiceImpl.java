@@ -3,17 +3,14 @@ package com.m2l.m2l.services;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
-
 import com.m2l.m2l.dto.JwtResponseDto;
 import com.m2l.m2l.repositories.UserRepository;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,12 +55,10 @@ public class TokenServiceImpl implements TokenService {
             log.error("Demande de raffraichissement refusé pour  {}", email);
             throw new BadCredentialsException("Utilisateur inexistant");
         }
-        var role = user.getRole().name();
-        
+        var role = user.getRole().name();   
         return new JwtResponseDto(
                 generateAccessTokenFromAuthentication(email, role),
                 generateRefreshToken(email)
         );
-    }
-    
+    }   
 }

@@ -1,6 +1,6 @@
 package com.m2l.m2l.dto;
 
-import com.m2l.m2l.enums.GrantType;
+import com.m2l.m2l.entities.Article;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDto {
-	String email;
-	String password;
-	String refreshToken;
-	GrantType grantType;
+public class ArticleUserDto {
+	Article article;
+	Integer quantity;
 }

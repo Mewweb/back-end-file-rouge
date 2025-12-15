@@ -5,13 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.m2l.m2l.entities.Article;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
-	
-	Page<Article> findByActiveOrderByAddDateDesc(Boolean active, Pageable pageable);
-	
+	Page<Article> findByActiveOrderByAddDateDesc(Boolean active, Pageable pageable);	
 	@Query(""" 
 			SELECT DISTINCT a FROM Article a 
 			JOIN a.book b 
