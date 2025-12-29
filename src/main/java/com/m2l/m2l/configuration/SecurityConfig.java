@@ -50,7 +50,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.GET,"/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cartItem/panier/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // connexion sans état
                                                                                                   // : aucune donnée

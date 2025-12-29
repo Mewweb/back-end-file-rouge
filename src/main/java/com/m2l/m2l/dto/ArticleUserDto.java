@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleUserDto {
+	Integer id;
 	Article article;
 	Integer quantity;
 }

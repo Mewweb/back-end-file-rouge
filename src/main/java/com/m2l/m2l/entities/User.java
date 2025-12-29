@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import com.m2l.m2l.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

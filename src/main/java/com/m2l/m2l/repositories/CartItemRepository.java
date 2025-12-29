@@ -21,4 +21,5 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer>{
 			""")
 	List<CartItem> findCartItemByUser(@Param("email") String email);
 	
+	
 }
