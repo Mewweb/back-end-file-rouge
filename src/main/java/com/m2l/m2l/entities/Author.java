@@ -39,9 +39,7 @@ public class Author {
 	@NotEmpty
 	@Size(min=2, max=5)
 	String langue;
-
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("authors") // évite la récursion infinie
-    List<Book> books;
-	
+    List<Book> books;	
 }

@@ -28,7 +28,6 @@ public class Article_commande {
 	@NotEmpty
 	@NonNull
 	@Positive
-
 	Integer quantite;
 	@NotEmpty
 	@NonNull

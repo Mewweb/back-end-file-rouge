@@ -4,15 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.repositories.EditorRepository;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

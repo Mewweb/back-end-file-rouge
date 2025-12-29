@@ -1,19 +1,18 @@
 package com.m2l.m2l.entities;
 
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.CascadeType;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import com.m2l.m2l.enums.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -33,32 +32,34 @@ public class User {
 	@NonNull
 	@Size(min=3, max=50)
 	String lastname;
-	@NonNull
 	@NotEmpty
-	@Size(min=3, max=50)
+	@NonNull
+	@Size(min=3,max=50)
 	String firstname;
+	@Size(min=6,max=20)
+	String phone_number;
+	@Email
 	@NonNull
 	@NotEmpty
-	@Email
+	@Size(min=10,max=100)
 	String email;
 	@NotEmpty
+	@Column(unique = true)
 	@NonNull
-	@Size(min=100, max=255)
+	@Size(min=10, max=255)
 	String password;
-	@NonNull
-	@NotEmpty
-	@Default
-	Boolean is_admin = false;
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
-	String adresse_facturation;
+	String billing_address;
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
-	String adresse_livraison;
-	@JsonIgnoreProperties("users")
+	String delivery_address;
 	@NonNull
+	Role role;
+	/*@JsonIgnoreProperties("users")
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	List<Article> articles;
+	List<Article> articles;*/
+	
 }
