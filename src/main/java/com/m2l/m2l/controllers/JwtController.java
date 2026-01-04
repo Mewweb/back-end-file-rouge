@@ -1,15 +1,19 @@
 package com.m2l.m2l.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.m2l.m2l.dto.JwtResponseDto;
+import com.m2l.m2l.dto.PasswordUser;
 import com.m2l.m2l.dto.UserDataDto;
 import com.m2l.m2l.dto.UserRequestDto;
 import com.m2l.m2l.entities.User;
@@ -64,13 +68,22 @@ public class JwtController {
     	}
     	return new ResponseEntity<UserDataDto>(user, HttpStatus.OK);
     }
-    
-   /* @GetMapping("/getUser/articles/{email}")
-    public ResponseEntity<List<ArticleUserDto>> getArticles(@PathVariable String email){
-    	var articles = userService.findAllArticlesByUser(email);
-    	if(articles == null) {
+
+    @PutMapping("/editUser")
+    public ResponseEntity<Void> updateUser(@RequestBody UserDataDto user){
+    	var u = userService.update(user);
+    	if(u == null) {
     		return ResponseEntity.notFound().build();
     	}
-    	return new ResponseEntity<List<ArticleUserDto>>(articles, HttpStatus.OK);
-    }*/
+    	return ResponseEntity.accepted().build();
+    }
+    
+    @PutMapping("/editUser/password")
+    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUser password){
+    	var p = userService.updatePassword(password);
+    	if(p == null) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	return ResponseEntity.accepted().build();
+    }
 }

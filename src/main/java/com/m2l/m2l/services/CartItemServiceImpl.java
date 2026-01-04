@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.m2l.m2l.dto.ArticleUserDto;
+import com.m2l.m2l.dto.CreateCartItem;
+import com.m2l.m2l.entities.Article;
 import com.m2l.m2l.entities.CartItem;
+import com.m2l.m2l.entities.User;
+import com.m2l.m2l.repositories.ArticleRepository;
 import com.m2l.m2l.repositories.CartItemRepository;
+import com.m2l.m2l.repositories.UserRepository;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -19,13 +23,29 @@ import lombok.AllArgsConstructor;
 public class CartItemServiceImpl implements CartItemService{
 	@Autowired
 	private CartItemRepository cartItemRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private ArticleRepository articleRepository;
 	
 	@Override
 	public List<CartItem> findAll(){
 		return cartItemRepository.findAll();
 	}
 	
-	public CartItem save(@Valid CartItem cartItem) {
+	@Override
+	public CartItem save(CartItem cartItem) {
+		return cartItemRepository.save(cartItem);
+	}
+	
+	@Override
+	public CartItem saveCartItem(CreateCartItem newCartItem) {
+		User user = userRepository.findById(newCartItem.getUser()).orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+		Article article = articleRepository.findById(newCartItem.getArticle()).orElseThrow(() -> new RuntimeException("Article non trouvé"));
+		CartItem cartItem = new CartItem();
+		cartItem.setQuantity(newCartItem.getQuantity());
+		cartItem.setArticle(article);
+		cartItem.setUser(user);
 		return cartItemRepository.save(cartItem);
 	}
 	
@@ -39,14 +59,6 @@ public class CartItemServiceImpl implements CartItemService{
 		}
 		return cartItemsFilter;
 	}
-
-	/*public Boolean update(List cartItems){
-		for(ArticleUserDto element : cartItems){
-			int test = cartItemRepository.updateQuantityCartItems(element.getQuantity(), element.getId());
-			System.out.println(test);
-		}
-		return true;
-	}*/
 	
 	@Override
 	public Boolean update(List<ArticleUserDto> cartItems) {
