@@ -1,7 +1,5 @@
 package com.m2l.m2l.entities;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import com.m2l.m2l.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,12 +39,12 @@ public class User {
 	@Email
 	@NonNull
 	@NotEmpty
-	@Size(min=10,max=100)
+	@Size(min=5,max=254)
 	String email;
 	@NotEmpty
 	@Column(unique = true)
 	@NonNull
-	@Size(min=10, max=255)
+	@Size(min=8, max=255)
 	String password;
 	@NotEmpty
 	@NonNull

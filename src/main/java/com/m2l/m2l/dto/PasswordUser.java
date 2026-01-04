@@ -4,15 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class UserDataDto {
+public class PasswordUser {
 	Integer id;
-	String lastname;
-	String firstname;
-	String phone_number;
-	String email;
-	String billing_address;
-	String delivery_address;
+	String oldPassword;
+	String newPassword;
 }
