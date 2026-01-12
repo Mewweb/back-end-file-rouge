@@ -1,5 +1,6 @@
 package com.m2l.m2l.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import com.m2l.m2l.dto.CreateBook;
 import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.repositories.AuthorRepository;
@@ -59,16 +62,15 @@ public class BookServiceImpl implements BookService{
 		return bookRepository.save(book);
 	}
 	
-	public ResponseEntity<Book> createBook(@RequestBody BookRequest request) {
-		System.out.println(request.getAuthorsId());
-		List<Author> authors = authorRepository.findAllById(request.getAuthorsId());
+	public ResponseEntity<Book> createBook(@RequestBody CreateBook request) {
+		System.out.println(request.getAuthors());
+		List<Author> authors = authorRepository.findAllById(request.getAuthors());
 		if(authors.isEmpty()) {
 			throw new RuntimeException("No authors found with provided IDs");
 		}
 		Book book = Book.builder()
 				.title(request.getTitle())
 				.synopsis(request.getSynopsis())
-				.stock(request.getStock())
 				.style(request.getStyle())
 				.image(request.getImage())
 				.date(request.getDate())

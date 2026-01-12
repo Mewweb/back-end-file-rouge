@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -44,6 +45,11 @@ public class Article {
 	@Max(1000)
 	@Positive
 	Integer price;
+	@NonNull
+	@Min(0)
+	@Max(1000)
+	@Positive
+	Integer stock;
 	@Default
 	@NonNull
 	Boolean active = false;

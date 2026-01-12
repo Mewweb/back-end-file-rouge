@@ -45,10 +45,7 @@ public class Book {
 	@Size(min=20)
 	@Column(columnDefinition= "TEXT")
 	String synopsis;
-	@NonNull
-	@Min(0)
-	@Max(1000)
-	Integer stock;
+	
 	@NonNull
 	@NotEmpty
 	@Size(min=3, max=255)
