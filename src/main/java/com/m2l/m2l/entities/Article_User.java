@@ -26,16 +26,19 @@ public class Article_User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
 	@NotEmpty
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable= false)
+	@JoinColumn(nullable = false)
 	User user;
+
 	@NotEmpty
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "article_id", nullable = false)
+	@JoinColumn(nullable = false)
 	Article article;
+
 	@NonNull
 	@NotEmpty
 	@Positive

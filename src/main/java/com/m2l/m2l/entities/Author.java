@@ -27,19 +27,23 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
 	@NotEmpty
 	@Size(min=3, max=50)
 	String lastname;
+
 	@NonNull
 	@NotEmpty
 	@Size(min=3, max=50)
 	String firstname;
+
 	@NonNull
 	@NotEmpty
 	@Size(min=2, max=5)
 	String langue;
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+
+	@ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("authors") // évite la récursion infinie
     List<Book> books;	
 }

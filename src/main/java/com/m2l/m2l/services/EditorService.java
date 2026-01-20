@@ -6,6 +6,7 @@ import com.m2l.m2l.entities.Editor;
 
 public interface EditorService {
 	Page<Editor> findAll();
+	Page<Editor> findAllIdTitle();
 	List<Editor> saveAll(List<Editor> editor);	
 	Page<Editor> findEditorByTitle(String keyword);
 }

@@ -25,6 +25,12 @@ public class EditorServiceImpl implements EditorService{
 	}
 	
 	@Override
+	public Page<Editor> findAllIdTitle(){
+		Page<Editor> editors = editorRepository.selectNameEditor(PageRequest.of(0, 9));
+		return editors;
+	}
+	
+	@Override
 	public Page<Editor> findEditorByTitle(String keyword){
 		try {
 			String urlSearch = URLDecoder.decode(keyword, StandardCharsets.UTF_8.name());

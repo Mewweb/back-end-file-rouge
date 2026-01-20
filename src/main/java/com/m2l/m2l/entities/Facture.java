@@ -25,16 +25,19 @@ public class Facture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NotEmpty
 	@NonNull
 	@Size(min=1, max=255)
 	String numberString;
+
 	@NotEmpty
 	@NonNull
 	@Size(min=1,max=255)
 	String pdf;
+
 	@ManyToOne
 	@NonNull
-	@JoinColumn(name="facture_id", nullable = false)
+	@JoinColumn(nullable = false)
 	Commande commande;
 }

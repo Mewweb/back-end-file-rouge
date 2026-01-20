@@ -25,24 +25,30 @@ public class Article_commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Integer quantite;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float price_ht;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float price_ttc;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float total_price;
+
 	@ManyToOne
-	@NonNull
-	@JoinColumn(name="command_id", nullable=false)
+	@JoinColumn(nullable = false)
 	Commande commande;
+
+
 }

@@ -1,7 +1,10 @@
 package com.m2l.m2l.controllers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BookController{
 	private BookService bookService;
+	
+	@GetMapping("/admin/all")
+	public ResponseEntity<Page<Book>> findAll(){
+		Page<Book> allBooks = bookService.findAll();
+		return new ResponseEntity<Page<Book>>(allBooks,HttpStatus.OK);
+	}
+	
+	@GetMapping("/{keyword}")
+	public ResponseEntity<Page<Book>> findByTitle(@PathVariable String keyword){
+		Page<Book> allBooks = bookService.findBookByTitle(keyword);
+		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);			
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

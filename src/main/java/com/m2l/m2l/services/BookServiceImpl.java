@@ -1,7 +1,10 @@
 package com.m2l.m2l.services;
 
-import java.time.LocalDate;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +17,7 @@ import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.repositories.AuthorRepository;
 import com.m2l.m2l.repositories.BookRepository;
-import com.m2l.m2l.request.BookRequest;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -26,8 +29,20 @@ public class BookServiceImpl implements BookService{
 	private AuthorRepository authorRepository;
 	
 	@Override
-	public List<Book> findAll(){
-		return bookRepository.findAll();
+	public Page<Book> findAll(){
+		Page<Book> books = bookRepository.selectNameBook(PageRequest.of(0, 9));
+		return books;
+	}
+	
+	@Override
+	public Page<Book> findBookByTitle(String keyword) {
+		try {
+			String urlSearch = URLDecoder.decode(keyword, StandardCharsets.UTF_8.name());
+			Page<Book> books = bookRepository.selectBookByTitle(urlSearch, PageRequest.of(0, 9));
+			return books;
+		}catch(UnsupportedEncodingException e) {
+			return null;
+		}
 	}
 	
 	@Override

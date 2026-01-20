@@ -14,8 +14,14 @@ public interface EditorRepository extends JpaRepository<Editor, Integer> {
 	Page<Editor> selectTitleEditor(Pageable pageable);
 	
 	@Query(""" 
+			SELECT DISTINCT id,title FROM Editor e
+			""")
+	Page<Editor> selectNameEditor(Pageable pageable);
+	
+	@Query(""" 
 			SELECT DISTINCT title FROM Editor e WHERE
 			LOWER(e.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			""")
 	Page<Editor> selectEditorByTitle(@Param("keyword") String keyword, Pageable pageable);
+	
 }

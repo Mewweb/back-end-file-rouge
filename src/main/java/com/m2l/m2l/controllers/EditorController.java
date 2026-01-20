@@ -23,6 +23,18 @@ public class EditorController {
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
 	}
 	
+	@GetMapping("/admin/all")
+	public ResponseEntity<Page<Editor>> findAllIdTitle(){
+		Page<Editor> allEditors = editorService.findAllIdTitle();
+		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{keyword}")
+	public ResponseEntity<Page<Editor>> findByTitle(@PathVariable String keyword){
+		Page<Editor> allEditors = editorService.findEditorByTitle(keyword);
+		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
+	}
+	
 	@GetMapping("/{title}")
 	public ResponseEntity<Page<Editor>> findAllOrFindByTitle(@PathVariable String title){
 		Page<Editor> allEditors = editorService.findEditorByTitle(title);

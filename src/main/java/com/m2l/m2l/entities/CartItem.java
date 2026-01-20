@@ -25,14 +25,17 @@ public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable= false)
+	@JoinColumn(nullable= false)
 	User user;
+
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "article_id", nullable = false)
+	@JoinColumn(nullable = false)
 	Article article;
+
 	@NonNull
 	@Positive
 	@Max(1000)
