@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class Article_User {
 	Integer id;
 
 	@NonNull
+	@JsonIgnoreProperties("users")
 	@NotEmpty
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -36,6 +39,7 @@ public class Article_User {
 	@NotEmpty
 	@NonNull
 	@ManyToOne
+	@JsonIgnoreProperties("articles")
 	@JoinColumn(nullable = false)
 	Article article;
 

@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,11 +30,13 @@ public class CartItem {
 
 	@NonNull
 	@ManyToOne
+	@JsonIgnoreProperties("users")
 	@JoinColumn(nullable= false)
 	User user;
 
 	@NonNull
 	@ManyToOne
+	@JsonIgnoreProperties("articles")
 	@JoinColumn(nullable = false)
 	Article article;
 

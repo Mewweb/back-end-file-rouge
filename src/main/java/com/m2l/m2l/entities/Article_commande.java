@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,6 +49,7 @@ public class Article_commande {
 	Float total_price;
 
 	@ManyToOne
+	@JsonIgnoreProperties("commandes")
 	@JoinColumn(nullable = false)
 	Commande commande;
 

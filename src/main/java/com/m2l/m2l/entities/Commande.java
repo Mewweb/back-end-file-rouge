@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +47,7 @@ public class Commande {
 
 	@ManyToOne
 	@NonNull
+	@JsonIgnoreProperties("users")
 	@JoinColumn(nullable = false)
 	User user;	
 

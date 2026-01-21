@@ -6,6 +6,7 @@ package com.m2l.m2l.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.m2l.m2l.enums.Role;
 
 import jakarta.persistence.CascadeType;
