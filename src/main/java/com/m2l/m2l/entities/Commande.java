@@ -52,8 +52,10 @@ public class Commande {
 	User user;	
 
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL,orphanRemoval = true)
+	@JsonIgnoreProperties("commande")
 	List<Article_commande> article_commandes = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("commande")
 	List<Facture> factures = new ArrayList<>();
 }

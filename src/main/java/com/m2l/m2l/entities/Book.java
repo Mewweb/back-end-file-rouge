@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -77,9 +78,15 @@ public class Book {
 
 	@JsonIgnoreProperties("books")
 	@NonNull
-	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToMany
+	//@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinTable(name="book_authors", 
+		joinColumns = @JoinColumn(name="book_id"),
+		inverseJoinColumns = @JoinColumn(name="author_id")
+	)
 	List<Author> authors;
 
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("book")
 	private List<Article> articles = new ArrayList<>();
 }

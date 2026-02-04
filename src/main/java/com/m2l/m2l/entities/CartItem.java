@@ -30,13 +30,13 @@ public class CartItem {
 
 	@NonNull
 	@ManyToOne
-	@JsonIgnoreProperties("users")
+	@JsonIgnoreProperties("cartItems")
 	@JoinColumn(nullable= false)
 	User user;
 
 	@NonNull
 	@ManyToOne
-	@JsonIgnoreProperties("articles")
+	@JsonIgnoreProperties("cartItems")
 	@JoinColumn(nullable = false)
 	Article article;
 

@@ -3,13 +3,21 @@ package com.m2l.m2l.services;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.m2l.m2l.dto.CreateAuthor;
+import com.m2l.m2l.dto.CreateEditor;
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.repositories.EditorRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -42,7 +50,35 @@ public class EditorServiceImpl implements EditorService{
 	}
 	
 	@Override
+	@Transactional
+	public Boolean remove(int id) {
+		Editor editor = editorRepository.findById(id).orElse(null);
+		if(editor != null) {
+			editor.getArticles().clear();
+			editorRepository.delete(editor);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public List<Editor> saveAll(List<Editor> editors) {
 		return editorRepository.saveAll(editors);
+	}
+	
+	@Override
+	public Page<Editor> findAllWithOffset(int offset){
+		Page<Editor> editors = editorRepository.findAll(PageRequest.of(offset, 9));
+		return editors;
+	}
+	
+	public ResponseEntity<Editor> createEditor(@RequestBody CreateEditor request){
+		Editor editor = Editor.builder()
+				.title(request.getTitle())
+				.description(request.getDescription())
+				.date(LocalDate.parse(request.getDate()))
+				.build();
+		Editor savedEditor = editorRepository.save(editor);
+		return ResponseEntity.ok(savedEditor);
 	}
 }

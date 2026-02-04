@@ -23,10 +23,10 @@ import lombok.AllArgsConstructor;
 public class BookController{
 	private BookService bookService;
 	
-	@GetMapping("/admin/all")
-	public ResponseEntity<Page<Book>> findAll(){
-		Page<Book> allBooks = bookService.findAll();
-		return new ResponseEntity<Page<Book>>(allBooks,HttpStatus.OK);
+	@GetMapping("/admin/{offset}")
+	public ResponseEntity<Page<Book>> findAll(@PathVariable int offset){
+		Page<Book> allBooks = bookService.findActiveBooks(offset, 9);
+		return new ResponseEntity<Page<Book>>(allBooks, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{keyword}")

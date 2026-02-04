@@ -15,6 +15,7 @@ import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.entities.User;
+import com.m2l.m2l.enums.Langage;
 import com.m2l.m2l.enums.Role;
 import com.m2l.m2l.repositories.UserRepository;
 import com.m2l.m2l.services.ArticleService;
@@ -45,22 +46,22 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Author author = Author.builder()
 				.lastname("Asimov")
 				.firstname("Isaac")
-				.langue("US")
+				.langue(Langage.DE)
 				.build();
 		Author author1 = Author.builder()
 				.lastname("K Dick")
 				.firstname("Philip")
-				.langue("US")
+				.langue(Langage.ES)
 				.build();		
 		Author author2 = Author.builder()
 				.lastname("Doe")
 				.firstname("John")
-				.langue("FR")
+				.langue(Langage.GB)
 				.build();		
 		Author author3 = Author.builder()
 				.lastname("Dupont")
 				.firstname("Martin")
-				.langue("FR")
+				.langue(Langage.FR)
 				.build();
 		
 		authorService.saveAll(List.of(author, author1, author2, author3));

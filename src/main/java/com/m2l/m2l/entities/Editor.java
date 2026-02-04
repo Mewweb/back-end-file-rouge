@@ -53,5 +53,6 @@ public class Editor{
 	LocalDate date;
 	
 	@OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("editor")
 	List<Article> articles = new ArrayList<>();
 }

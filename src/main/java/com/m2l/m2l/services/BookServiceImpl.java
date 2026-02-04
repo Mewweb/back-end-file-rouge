@@ -78,7 +78,6 @@ public class BookServiceImpl implements BookService{
 	}
 	
 	public ResponseEntity<Book> createBook(@RequestBody CreateBook request) {
-		System.out.println(request.getAuthors());
 		List<Author> authors = authorRepository.findAllById(request.getAuthors());
 		if(authors.isEmpty()) {
 			throw new RuntimeException("No authors found with provided IDs");

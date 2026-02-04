@@ -97,8 +97,10 @@ public class Article {
 	Book book;
 	
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("article")
 	List<Article_User> article_Users = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("article")
 	List<CartItem> cartItems = new ArrayList<>();
 }
