@@ -15,6 +15,7 @@ import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.entities.User;
+import com.m2l.m2l.enums.Langage;
 import com.m2l.m2l.enums.Role;
 import com.m2l.m2l.repositories.UserRepository;
 import com.m2l.m2l.services.ArticleService;
@@ -45,22 +46,22 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Author author = Author.builder()
 				.lastname("Asimov")
 				.firstname("Isaac")
-				.langue("US")
+				.langue(Langage.DE)
 				.build();
 		Author author1 = Author.builder()
 				.lastname("K Dick")
 				.firstname("Philip")
-				.langue("US")
+				.langue(Langage.ES)
 				.build();		
 		Author author2 = Author.builder()
 				.lastname("Doe")
 				.firstname("John")
-				.langue("FR")
+				.langue(Langage.GB)
 				.build();		
 		Author author3 = Author.builder()
 				.lastname("Dupont")
 				.firstname("Martin")
-				.langue("FR")
+				.langue(Langage.FR)
 				.build();
 		
 		authorService.saveAll(List.of(author, author1, author2, author3));
@@ -88,7 +89,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Book book = Book.builder()
 				.title("Les robots")
 				.synopsis("Lorem ipsum dolor sit amet consectetur adipisicing elit. Elit adipisicing consectetur amet sit dolor ipsum lorem.")
-				.stock(100)
 				.style("Science-fiction")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("sdfqsd")
@@ -99,7 +99,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Book book1 = Book.builder()
 				.title("Fondations")
 				.synopsis("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi erchitecto beatae vitae dicta sunt explicabo.")
-				.stock(45)
 				.style("Science-fiction")
 				.date(LocalDate.parse("1962-12-07"))
 				.image("sdfqsd")
@@ -110,7 +109,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Book book2 = Book.builder()
 				.title("Les androides rêvent-t'il de moutons électriques")
 				.synopsis("Neque porro quisuqam est, qui dolorem ipsum quia dolor sit emet consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.")
-				.stock(4)
 				.style("Science-fiction")
 				.date(LocalDate.parse("1965-12-07"))
 				.image("sdfqsd")
@@ -121,7 +119,6 @@ public class SpringM2lApplication implements ApplicationRunner{
 		Book book3 = Book.builder()
 				.title("Lorem ipsum")
 				.synopsis("Sed do uiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-				.stock(100)
 				.style("Drame")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("sdfqsd")
@@ -132,74 +129,95 @@ public class SpringM2lApplication implements ApplicationRunner{
 		
 		Article article1 = Article.builder()
 				.title("Grand format")
-				.format("200x400x85")
+				.width(200)
+				.height(450)
+				.thickness(50)
 				.active(true)
+				.stock(100)
 				.editor(editor2)
 				.book(book)
 				.price(15)
-				.number_isbn("123456")
+				.number_isbn("1234567890123")
 				.build();
 		
 		Article article2 = Article.builder()
 				.title("Format numérique")
-				.format("Papier A4")
+				.width(200)
+				.height(450)
+				.thickness(50)
 				.active(true)
+				.stock(25)
 				.editor(editor1)
 				.book(book3)
 				.price(13)
-				.number_isbn("qdqpjf")
+				.number_isbn("1234567890123")
 				.build();
 
 		for(int i = 0; i < 5; i++) {
 			articleService.save(Article.builder()
 					.title("Livre de poche")
-					.format("100x200x75")
+					.width(200)
+					.height(450)
+					.thickness(50)
 					.active(true)
+					.stock(145)
 					.editor(editor2)
 					.book(book)
 					.price(18)
-					.number_isbn("qsdff")
+					.number_isbn("1234567890123")
 					.build());
 			
 			articleService.save(Article.builder()
 					.title("Livre de poche")
-					.format("10x200x25")
+					.width(200)
+					.height(450)
+					.thickness(50)
 					.active(true)
+					.stock(42)
 					.editor(editor1)
 					.book(book1)
 					.price(8)
-					.number_isbn("qsdff")
+					.number_isbn("1234567890123")
 					.build());
 			
 			articleService.save(Article.builder()
 					.title("Grand format")
-					.format("100x200x50")
+					.width(200)
+					.height(450)
+					.thickness(50)
 					.active(true)
+					.stock(48)
 					.editor(editor1)
 					.price(12)
 					.book(book1)
-					.number_isbn("qsdff")
+					.number_isbn("1234567890123")
 
 					.build());
 			
 			articleService.save(Article.builder()
 					.title("Livre de poche")
-					.format("50x100x25")
+					.width(200)
+					.height(450)
+					.thickness(50)
 					.active(true)
+					.stock(75)
 					.editor(editor)
 					.book(book2)
 					.price(12)
-					.number_isbn("qsdff")
+					.number_isbn("1234567890123")
 					.build());
 			
 			articleService.save(Article.builder()
 					.title("Le livre de poche")
-					.format("50x100x25")
+					.width(200)
+					.height(450)
+					.thickness(50)
 					.active(true)
+					.stock(78)
 					.editor(editor2)
 					.book(book3)
 					.price(21)
-					.number_isbn("qsdff")
+					.number_isbn("1234567890123")
 					.build());
 		}
 		User user = User.builder()

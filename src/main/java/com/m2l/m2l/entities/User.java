@@ -1,11 +1,22 @@
 package com.m2l.m2l.entities;
 
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.m2l.m2l.enums.Role;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -26,36 +37,53 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NotEmpty
 	@NonNull
 	@Size(min=3, max=50)
 	String lastname;
+	
 	@NotEmpty
 	@NonNull
 	@Size(min=3,max=50)
 	String firstname;
+	
 	@Size(min=6,max=20)
 	String phone_number;
+	
 	@Email
 	@NonNull
 	@NotEmpty
 	@Size(min=5,max=254)
-	String email;
-	@NotEmpty
 	@Column(unique = true)
+	String email;
+	
+	@NotEmpty
 	@NonNull
 	@Size(min=8, max=255)
 	String password;
+	
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
 	String billing_address;
+	
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
 	String delivery_address;
+	
 	@NonNull
 	Role role;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	List<Article_User> article_Users = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	List<CartItem> cartItems = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+	List<Commande> commandes = new ArrayList<>();
 	/*@JsonIgnoreProperties("users")
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	List<Article> articles;*/

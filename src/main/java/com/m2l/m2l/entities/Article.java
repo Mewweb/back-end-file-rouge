@@ -1,13 +1,21 @@
 package com.m2l.m2l.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -29,38 +37,70 @@ public class Article {
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
 	@NotEmpty
 	@Size(min=1, max=50)
 	String title;
-	@NotEmpty
+
 	@NonNull
-	@Size(min=3, max=20)
-	String format;
+	@Min(1)
+	@Max(1000)
+	Integer width;
+
+	@NonNull
+	@Min(1)
+	@Max(1000)
+	Integer height;
+
+	@NonNull
+	@Min(1)
+	@Max(1000)
+	Integer thickness;
+
 	@NonNull
 	@NotEmpty
+	@Size(min=10,max=14)
 	String number_isbn;
+
 	@NonNull
+	@Min(1)
 	@Max(1000)
 	@Positive
 	Integer price;
+
+	@NonNull
+	@Min(0)
+	@Max(1000)
+	@Positive
+	Integer stock;
+
 	@Default
 	@NonNull
 	Boolean active = false;
+
 	@Default
 	LocalDateTime addDate = LocalDateTime.now();
+
 	@Default
 	LocalDateTime editDate = LocalDateTime.now();
-	@ManyToOne
-	@NonNull
-	@JoinColumn(name="editor_id", nullable = false)
-	Editor editor;
-	@ManyToOne
-	@NonNull
-	@JoinColumn(name="book_id", nullable=false)
-	Book book;
-	/*@ManyToMany(mappedBy = "articles", fetch = FetchType.EAGER)
-	@JsonIgnoreProperties("articles")
-	List<User> users;*/
 
+	@ManyToOne
+	@NonNull
+	@JsonIgnoreProperties("articles")
+	@JoinColumn(nullable = false)
+	Editor editor;
+
+	@JsonIgnoreProperties("articles")
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	Book book;
+	
+	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("article")
+	List<Article_User> article_Users = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("article")
+	List<CartItem> cartItems = new ArrayList<>();
 }

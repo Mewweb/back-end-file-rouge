@@ -1,6 +1,5 @@
 package com.m2l.m2l.controllers;
 
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +53,16 @@ public class JwtController {
     
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User register(@RequestBody User user) {
+    public User register(@RequestBody User user) {  
     	user.setRole(Role.USER);
+    	user.setPassword(encoder.encode(user.getPassword()));
+    	return userService.save(user);
+    }
+    
+    @PostMapping("/create/admin")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User registerAdmin(@RequestBody User user) {
+    	user.setRole(Role.ADMIN);
     	user.setPassword(encoder.encode(user.getPassword()));
     	return userService.save(user);
     }

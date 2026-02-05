@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,14 +27,19 @@ public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable= false)
+	@JsonIgnoreProperties("cartItems")
+	@JoinColumn(nullable= false)
 	User user;
+
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "article_id", nullable = false)
+	@JsonIgnoreProperties("cartItems")
+	@JoinColumn(nullable = false)
 	Article article;
+
 	@NonNull
 	@Positive
 	@Max(1000)

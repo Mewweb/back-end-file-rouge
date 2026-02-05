@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,16 +28,21 @@ public class Article_User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NonNull
+	@JsonIgnoreProperties("users")
 	@NotEmpty
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable= false)
+	@JoinColumn(nullable = false)
 	User user;
+
 	@NotEmpty
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "article_id", nullable = false)
+	@JsonIgnoreProperties("articles")
+	@JoinColumn(nullable = false)
 	Article article;
+
 	@NonNull
 	@NotEmpty
 	@Positive

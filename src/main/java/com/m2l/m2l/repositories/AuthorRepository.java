@@ -19,4 +19,5 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 			OR LOWER(CONCAT(a.firstname, ' ', a.lastname)) LIKE LOWER(CONCAT('%', :keyword,'%'))
 			""")
 	Page<Author> selectAuthorByTitle(@Param("keyword") String keyword, Pageable pageable);
+	
 }
