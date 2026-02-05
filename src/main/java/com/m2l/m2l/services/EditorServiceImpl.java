@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.m2l.m2l.dto.CreateAuthor;
 import com.m2l.m2l.dto.CreateEditor;
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.repositories.EditorRepository;
@@ -47,6 +47,22 @@ public class EditorServiceImpl implements EditorService{
 		}catch(UnsupportedEncodingException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public CreateEditor findById(int id) {
+		Editor editor = editorRepository.findById(id).orElse(null);
+		CreateEditor createEditor = new CreateEditor();
+		createEditor.setId(editor.getId());
+		createEditor.setTitle(editor.getTitle());
+		createEditor.setDescription(editor.getDescription());
+		createEditor.setDate(editor.getDate().toString());
+		return createEditor;
+	}
+	
+	@Override
+	public Editor update(Editor editor) {
+		return editorRepository.save(editor);
 	}
 	
 	@Override

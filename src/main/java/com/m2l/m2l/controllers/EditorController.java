@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -41,17 +42,26 @@ public class EditorController {
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{keyword}")
+	/*@GetMapping("/{keyword}")
 	public ResponseEntity<Page<Editor>> findByTitle(@PathVariable String keyword){
 		Page<Editor> allEditors = editorService.findEditorByTitle(keyword);
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
+	}*/
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<CreateEditor> getEditor(@PathVariable int id){
+		var e = editorService.findById(id);
+		if(e == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<CreateEditor>(e, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{title}")
+	/*@GetMapping("/{title}")
 	public ResponseEntity<Page<Editor>> findAllOrFindByTitle(@PathVariable String title){
 		Page<Editor> allEditors = editorService.findEditorByTitle(title);
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
-	}
+	}*/
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteEditor(@PathVariable int id){
@@ -66,5 +76,17 @@ public class EditorController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Editor> addEditor(@RequestBody CreateEditor editor){
 		return editorService.createEditor(editor);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Editor> updateEditor(@RequestBody Editor editor, @PathVariable int id){
+		if(id != editor.getId()) {
+			return ResponseEntity.badRequest().build();
+		}
+		var e = editorService.update(editor);
+		if(e == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<Editor>(e, HttpStatus.ACCEPTED);
 	}
 }
