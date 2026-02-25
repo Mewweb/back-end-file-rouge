@@ -1,7 +1,5 @@
 package com.m2l.m2l.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,20 +25,16 @@ public class Facture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-
 	@NotEmpty
 	@NonNull
 	@Size(min=1, max=255)
 	String numberString;
-
 	@NotEmpty
 	@NonNull
 	@Size(min=1,max=255)
 	String pdf;
-
 	@ManyToOne
 	@NonNull
-	@JsonIgnoreProperties("commandes")
-	@JoinColumn(nullable = false)
+	@JoinColumn(name="facture_id", nullable = false)
 	Commande commande;
 }
