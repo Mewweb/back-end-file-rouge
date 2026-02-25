@@ -1,27 +1,21 @@
 package com.m2l.m2l.entities;
 
-
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.m2l.m2l.enums.Role;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -37,55 +31,36 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-
 	@NotEmpty
 	@NonNull
 	@Size(min=3, max=50)
 	String lastname;
-	
-	@NotEmpty
 	@NonNull
-	@Size(min=3,max=50)
+	@NotEmpty
+	@Size(min=3, max=50)
 	String firstname;
-	
-	@Size(min=6,max=20)
-	String phone_number;
-	
+	@NonNull
+	@NotEmpty
 	@Email
-	@NonNull
-	@NotEmpty
-	@Size(min=5,max=254)
-	@Column(unique = true)
 	String email;
-	
 	@NotEmpty
 	@NonNull
-	@Size(min=8, max=255)
+	@Size(min=100, max=255)
 	String password;
-	
+	@NonNull
+	@NotEmpty
+	@Default
+	Boolean is_admin = false;
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
-	String billing_address;
-	
+	String adresse_facturation;
 	@NotEmpty
 	@NonNull
 	@Size(min=2, max=100)
-	String delivery_address;
-	
+	String adresse_livraison;
+	@JsonIgnoreProperties("articles")
 	@NonNull
-	Role role;
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Article_User> article_Users = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<CartItem> cartItems = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
-	List<Commande> commandes = new ArrayList<>();
-	/*@JsonIgnoreProperties("users")
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	List<Article> articles;*/
-	
+	List<Article> articles;
 }
