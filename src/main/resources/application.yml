@@ -1,0 +1,43 @@
+server:
+  servlet:
+    context-path: /m2l
+
+spring:
+  application:
+    name: m2l
+  security:
+    oauth2:
+      client:
+        registration:
+          google: 
+            client-id: 1097983058534-tbut2s2d476gj1kq9caon96f6drfcpep.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - openid
+              - email
+              - profile
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
+
+      
+  datasource:
+    url: jdbc:mysql://localhost:3306/m2l?createDatabaseIfNotExist=true
+    username: root
+    password: 
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+
+rsa:
+  public-key: classpath:jwt/public.pem
+  private-key: classpath:jwt/private.pem
+
+images.path: 'C:/Users/mewen/eclipse-workspace/m2l/public/img/'
+
+logging:
+  level:
+    '[org.springframework.security.oauth2]': DEBUG

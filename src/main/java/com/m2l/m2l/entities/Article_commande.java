@@ -1,5 +1,7 @@
 package com.m2l.m2l.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,25 +27,31 @@ public class Article_commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@NotEmpty
 	@NonNull
 	@Positive
-
 	Integer quantite;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float price_ht;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float price_ttc;
+
 	@NotEmpty
 	@NonNull
 	@Positive
 	Float total_price;
+
 	@ManyToOne
-	@NonNull
-	@JoinColumn(name="command_id", nullable=false)
+	@JsonIgnoreProperties("commandes")
+	@JoinColumn(nullable = false)
 	Commande commande;
+
+
 }
