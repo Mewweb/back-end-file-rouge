@@ -50,14 +50,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/books/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/sale/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // connexion sans
                                                                                                   // état: aucune donnée
                                                                                                   // enregistrée en
                                                                                                   // session pour
                                                                                                   // requêtes pour
-                                                                                                  // indiquer qu'on
+                                                                                                   // indiquer qu'on
                                                                                                   // utilise le
                                                                                                   // prorocole Oauth et
                                                                                                   // JWT

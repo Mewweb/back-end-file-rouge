@@ -3,6 +3,7 @@ package com.m2l.m2l;
 import java.awt.print.Printable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,6 +18,7 @@ import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.entities.Editor;
+import com.m2l.m2l.entities.Sale;
 import com.m2l.m2l.entities.User;
 import com.m2l.m2l.enums.Langage;
 import com.m2l.m2l.enums.Role;
@@ -26,6 +28,7 @@ import com.m2l.m2l.services.AuthorService;
 import com.m2l.m2l.services.BookService;
 import com.m2l.m2l.services.CartItemService;
 import com.m2l.m2l.services.EditorService;
+import com.m2l.m2l.services.SaleService;
 
 import lombok.AllArgsConstructor;
 
@@ -41,6 +44,7 @@ public class M2lApplication implements ApplicationRunner {
 	private CartItemService cartItemService;
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
+	private SaleService saleService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(M2lApplication.class, args);
@@ -48,6 +52,7 @@ public class M2lApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+
 		Author author = Author.builder()
 				.lastname("Asimov")
 				.firstname("Isaac")
@@ -157,8 +162,46 @@ public class M2lApplication implements ApplicationRunner {
 				.price(13)
 				.number_isbn("1234567890123")
 				.build();
-
+		articleService.save(article1);
+		articleService.save(article2);
+		Random r = new Random();
 		for (int i = 0; i < 5; i++) {
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article2)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article2)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article2)
+					.build());
+			saleService.save(Sale.builder()
+					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
+					.article(article1)
+					.build());
 			articleService.save(Article.builder()
 					.title("Livre de poche")
 					.width(200)
@@ -247,9 +290,6 @@ public class M2lApplication implements ApplicationRunner {
 				.article(article2)
 				.quantity(1)
 				.build();
-
-		articleService.save(article1);
-		articleService.save(article2);
 
 		userRepository.save(user);
 
