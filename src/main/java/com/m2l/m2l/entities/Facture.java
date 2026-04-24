@@ -1,7 +1,6 @@
 package com.m2l.m2l.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,12 +29,12 @@ public class Facture {
 
 	@NotEmpty
 	@NonNull
-	@Size(min=1, max=255)
+	@Size(min = 1, max = 255)
 	String numberString;
 
 	@NotEmpty
 	@NonNull
-	@Size(min=1,max=255)
+	@Size(min = 1, max = 255)
 	String pdf;
 
 	@ManyToOne

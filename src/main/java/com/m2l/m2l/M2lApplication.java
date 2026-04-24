@@ -1,17 +1,14 @@
 package com.m2l.m2l;
 
-import java.awt.print.Printable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.m2l.m2l.configuration.RsaKeyProperties;
 import com.m2l.m2l.entities.Article;
 import com.m2l.m2l.entities.Author;
@@ -29,7 +26,6 @@ import com.m2l.m2l.services.BookService;
 import com.m2l.m2l.services.CartItemService;
 import com.m2l.m2l.services.EditorService;
 import com.m2l.m2l.services.SaleService;
-
 import lombok.AllArgsConstructor;
 
 @SpringBootApplication
@@ -102,7 +98,7 @@ public class M2lApplication implements ApplicationRunner {
 						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Elit adipisicing consectetur amet sit dolor ipsum lorem.")
 				.style("Science-fiction")
 				.date(LocalDate.parse("2018-12-07"))
-				.image("C:\\Users\\mewen\\OneDrive\\Images\\Screenshots\\de.png")
+				.image("b76453da-5a87-4eaf-b803-8cb40eb3cf2e.png")
 				.authors(List.of(author, author1))
 				.build();
 
@@ -112,7 +108,7 @@ public class M2lApplication implements ApplicationRunner {
 						"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi erchitecto beatae vitae dicta sunt explicabo.")
 				.style("Science-fiction")
 				.date(LocalDate.parse("1962-12-07"))
-				.image("C:\\Users\\mewen\\OneDrive\\Images\\Screenshots\\de.png")
+				.image("5e914afc-713a-4724-9025-a3d8bf30b7d7.png")
 				.authors(List.of(author))
 				.build();
 
@@ -122,7 +118,7 @@ public class M2lApplication implements ApplicationRunner {
 						"Neque porro quisuqam est, qui dolorem ipsum quia dolor sit emet consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.")
 				.style("Science-fiction")
 				.date(LocalDate.parse("1965-12-07"))
-				.image("C:\\Users\\mewen\\OneDrive\\Images\\Screenshots\\de.png")
+				.image("7895781a-e7b2-4ba6-a6f4-0141f8665b27.png")
 				.authors(List.of(author1))
 				.build();
 
@@ -132,7 +128,7 @@ public class M2lApplication implements ApplicationRunner {
 						"Sed do uiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 				.style("Drame")
 				.date(LocalDate.parse("2018-12-07"))
-				.image("C:\\Users\\mewen\\OneDrive\\Images\\Screenshots\\de.png")
+				.image("a767e431-7a53-49f4-be13-d46aefd9e578.png")
 				.authors(List.of(author2))
 				.build();
 
@@ -164,44 +160,7 @@ public class M2lApplication implements ApplicationRunner {
 				.build();
 		articleService.save(article1);
 		articleService.save(article2);
-		Random r = new Random();
 		for (int i = 0; i < 5; i++) {
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article2)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article2)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article2)
-					.build());
-			saleService.save(Sale.builder()
-					.addDate(LocalDate.of(2025, r.nextInt(11) + 1, r.nextInt(27) + 1))
-					.article(article1)
-					.build());
 			articleService.save(Article.builder()
 					.title("Livre de poche")
 					.width(200)

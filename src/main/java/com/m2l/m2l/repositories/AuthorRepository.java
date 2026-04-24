@@ -12,12 +12,12 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 			SELECT DISTINCT id,CONCAT(firstname, ' ', lastname) FROM Author a
 			""")
 	Page<Author> selectNameAuthor(Pageable pageable);
-	
-	@Query(""" 
-			SELECT DISTINCT id, CONCAT(firstname, ' ', lastname) FROM Author a WHERE 
+
+	@Query("""
+			SELECT DISTINCT id, CONCAT(firstname, ' ', lastname) FROM Author a WHERE
 			LOWER(CONCAT(a.lastname, ' ', a.firstname)) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			OR LOWER(CONCAT(a.firstname, ' ', a.lastname)) LIKE LOWER(CONCAT('%', :keyword,'%'))
 			""")
 	Page<Author> selectAuthorByTitle(@Param("keyword") String keyword, Pageable pageable);
-	
+
 }

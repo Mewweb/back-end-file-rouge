@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.m2l.m2l.dto.CreateEditor;
 import com.m2l.m2l.entities.Editor;
 import com.m2l.m2l.services.EditorService;
@@ -24,61 +24,64 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EditorController {
 	private EditorService editorService;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<Page<Editor>> findAll(){
+	public ResponseEntity<Page<Editor>> findAll() {
 		Page<Editor> allEditors = editorService.findAll();
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/admin/all")
-	public ResponseEntity<Page<Editor>> findAllIdTitle(){
+	public ResponseEntity<Page<Editor>> findAllIdTitle() {
 		Page<Editor> allEditors = editorService.findAllIdTitle();
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all/{offset}")
-	public ResponseEntity<Page<Editor>> findAllWithOffset(@PathVariable int offset){
+	public ResponseEntity<Page<Editor>> findAllWithOffset(@PathVariable int offset) {
 		Page<Editor> allEditors = editorService.findAllWithOffset(offset);
 		return new ResponseEntity<Page<Editor>>(allEditors, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<CreateEditor> getEditor(@PathVariable int id){
+	public ResponseEntity<CreateEditor> getEditor(@PathVariable int id) {
 		var e = editorService.findById(id);
-		if(e == null) {
+		if (e == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return new ResponseEntity<CreateEditor>(e, HttpStatus.OK);
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
-	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<Void> deleteEditor(@PathVariable int id){
+	@Secured({ "ROLE_ADMIN" })
+	public ResponseEntity<Void> deleteEditor(@PathVariable int id) {
 		var e = editorService.remove(id);
-		if(e == false) {
+		if (e == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PostMapping
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Editor> addEditor(@RequestBody CreateEditor editor){
-		return editorService.createEditor(editor);
+	public ResponseEntity<?> addEditor(@RequestPart CreateEditor editor) {
+		try {
+			Editor createEditor = editorService.createEditor(editor);
+			return new ResponseEntity<>(createEditor, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
+
 	@PutMapping("/{id}")
-	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<Editor> updateEditor(@RequestBody Editor editor, @PathVariable int id){
-		if(id != editor.getId()) {
+	@Secured({ "ROLE_ADMIN" })
+	public ResponseEntity<Editor> updateEditor(@RequestBody Editor editor, @PathVariable int id) {
+		if (id != editor.getId()) {
 			return ResponseEntity.badRequest().build();
 		}
 		var e = editorService.update(editor);
-		if(e == null) {
+		if (e == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return new ResponseEntity<Editor>(e, HttpStatus.ACCEPTED);

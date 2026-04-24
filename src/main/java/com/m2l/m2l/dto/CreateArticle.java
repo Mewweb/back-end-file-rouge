@@ -1,7 +1,5 @@
 package com.m2l.m2l.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateArticle {
+public class CreateArticle{
 	Integer id;
 	String title;
 	Integer width;

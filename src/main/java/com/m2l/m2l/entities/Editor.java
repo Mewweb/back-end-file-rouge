@@ -3,11 +3,8 @@ package com.m2l.m2l.entities;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,27 +28,27 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @Builder
 @RequiredArgsConstructor
-public class Editor{
+public class Editor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 
 	@NonNull
 	@NotEmpty
-	@Size(min=2, max=50)
+	@Size(min = 2, max = 50)
 	String title;
 
 	@NonNull
 	@NotEmpty
 	@Lob
-	@Size(min=20)
+	@Size(min = 20)
 	@Column(columnDefinition = "TEXT")
 	String description;
 
 	@NonNull
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	LocalDate date;
-	
+
 	@OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("editor")
 	List<Article> articles = new ArrayList<>();

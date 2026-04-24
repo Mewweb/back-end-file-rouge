@@ -2,6 +2,8 @@ package com.m2l.m2l.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -20,6 +22,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.RouterFunctions;
+import org.springframework.web.servlet.function.ServerResponse;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -44,23 +49,14 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .cors(c -> c.configurationSource(corsConfigurationSource())) // pour pouvoir recevoir des requêtes
-                                                                             // d'un nom de domaine de différent
+                .cors(c -> c.configurationSource(corsConfigurationSource())) // pour pouvoir recevoir des requêtes d'un nom de domaine de différent
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/sale/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/files/**").permitAll()
                         .anyRequest().authenticated())
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // connexion sans
-                                                                                                  // état: aucune donnée
-                                                                                                  // enregistrée en
-                                                                                                  // session pour
-                                                                                                  // requêtes pour
-                                                                                                   // indiquer qu'on
-                                                                                                  // utilise le
-                                                                                                  // prorocole Oauth et
-                                                                                                  // JWT
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // connexion sans état: aucune donnée enregistrée en session pour requêtes pour indiquer qu'on utilise le prorocole Oauth et JWT
                 .oauth2ResourceServer(c -> c.jwt(Customizer.withDefaults()))
                 .build();
     }
@@ -105,5 +101,10 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    RouterFunction<ServerResponse> staticResourceLocator(Environment env) {
+        return RouterFunctions.resources("/files/**", new FileSystemResource(env.getProperty("images.path")));
     }
 }

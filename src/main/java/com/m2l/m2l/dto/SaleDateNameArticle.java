@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleDateNameArticle {
+public class SaleDateNameArticle{
     LocalDate add_date;
     Integer count;
 }

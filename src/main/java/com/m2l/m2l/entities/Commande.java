@@ -3,9 +3,7 @@ package com.m2l.m2l.entities;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,12 +47,12 @@ public class Commande {
 	@NonNull
 	@JsonIgnoreProperties("users")
 	@JoinColumn(nullable = false)
-	User user;	
+	User user;
 
-	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("commande")
 	List<Article_commande> article_commandes = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("commande")
 	List<Facture> factures = new ArrayList<>();

@@ -9,7 +9,7 @@ public class LoginController {
 	public String getUser() {
 		return "Welcome, User";
 	}
-	
+
 	@GetMapping("/admin")
 	public String getAdmin() {
 		return "Welcolme, Admin";

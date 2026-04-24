@@ -10,15 +10,15 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class CommandeServiceImpl implements CommandeService{
+public class CommandeServiceImpl implements CommandeService {
 	@Autowired
 	private CommandeRepository commandeRepository;
-	
+
 	@Override
-	public List<Commande> findAll(){
+	public List<Commande> findAll() {
 		return commandeRepository.findAll();
 	}
-	
+
 	@Override
 	public Commande save(@Valid Commande commande) {
 		return commandeRepository.save(commande);

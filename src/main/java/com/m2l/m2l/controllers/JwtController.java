@@ -1,6 +1,5 @@
 package com.m2l.m2l.controllers;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,16 +32,17 @@ public class JwtController {
     @PostMapping("/authenticate")
     public JwtResponseDto authenticate(@RequestBody UserRequestDto userDto) {
         log.info("Demande de jeton avec {} ", userDto.getGrantType().name());
-        if(userDto.getGrantType().name().equalsIgnoreCase("password")){
+        if (userDto.getGrantType().name().equalsIgnoreCase("password")) {
             log.info("Demande de jeton de la part de {}", userDto.getEmail());
             User user = userService.checkUser(userDto.getEmail(), userDto.getPassword());
             log.info("Accès autorisé pour l'utilisateur {}", userDto.getEmail());
-            var accessToken = tokenService.generateAccessTokenFromAuthentication(user.getEmail(),user.getRole().name());
+            var accessToken = tokenService.generateAccessTokenFromAuthentication(user.getEmail(),
+                    user.getRole().name());
             log.info("Jeton d'accès {} pour {}", accessToken, userDto.getEmail());
             var refreshToken = tokenService.generateRefreshToken(user.getEmail());
             log.info("Jeton de rafraichissement {} pour {}", refreshToken, userDto.getEmail());
             return new JwtResponseDto(accessToken, refreshToken);
-        }else if(userDto.getGrantType().name().equalsIgnoreCase("refresh_token")){
+        } else if (userDto.getGrantType().name().equalsIgnoreCase("refresh_token")) {
             var tokens = tokenService.generateTokensFromRefreshToken(userDto.getRefreshToken());
             log.info("Jeton d'accès {}", tokens.getAccessToken());
             log.info("Jeton de rafraichissement {}", tokens.getRefreshToken());
@@ -50,47 +50,47 @@ public class JwtController {
         }
         return null;
     }
-    
+
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User register(@RequestBody User user) {  
-    	user.setRole(Role.USER);
-    	user.setPassword(encoder.encode(user.getPassword()));
-    	return userService.save(user);
+    public User register(@RequestBody User user) {
+        user.setRole(Role.USER);
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userService.save(user);
     }
-    
+
     @PostMapping("/create/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public User registerAdmin(@RequestBody User user) {
-    	user.setRole(Role.ADMIN);
-    	user.setPassword(encoder.encode(user.getPassword()));
-    	return userService.save(user);
+        user.setRole(Role.ADMIN);
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userService.save(user);
     }
-    
+
     @GetMapping("/getUser/{email}")
-    public ResponseEntity<UserDataDto> getUser(@PathVariable String email){
-    	var user = userService.getUser(email);
-    	if(user == null){
-    		return ResponseEntity.notFound().build();
-    	}
-    	return new ResponseEntity<UserDataDto>(user, HttpStatus.OK);
+    public ResponseEntity<UserDataDto> getUser(@PathVariable String email) {
+        var user = userService.getUser(email);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<UserDataDto>(user, HttpStatus.OK);
     }
 
     @PutMapping("/editUser")
-    public ResponseEntity<Void> updateUser(@RequestBody UserDataDto user){
-    	var u = userService.update(user);
-    	if(u == null) {
-    		return ResponseEntity.notFound().build();
-    	}
-    	return ResponseEntity.accepted().build();
+    public ResponseEntity<Void> updateUser(@RequestBody UserDataDto user) {
+        var u = userService.update(user);
+        if (u == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.accepted().build();
     }
-    
+
     @PutMapping("/editUser/password")
-    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUser password){
-    	var p = userService.updatePassword(password);
-    	if(p == null) {
-    		return ResponseEntity.notFound().build();
-    	}
-    	return ResponseEntity.accepted().build();
+    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUser password) {
+        var p = userService.updatePassword(password);
+        if (p == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.accepted().build();
     }
 }

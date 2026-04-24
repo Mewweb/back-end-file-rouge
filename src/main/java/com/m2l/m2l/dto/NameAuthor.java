@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameAuthor {
+public class NameAuthor{
 	Integer id;
 	String lastname;
 	String firstname;

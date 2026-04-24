@@ -1,7 +1,6 @@
 package com.m2l.m2l.controllers;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.m2l.m2l.dto.ArticleUserDto;
 import com.m2l.m2l.dto.CreateCartItem;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.services.CartItemService;
-
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -29,36 +26,36 @@ public class CartItemController {
 	private CartItemService cartItemService;
 
 	@GetMapping("/panier/{email}")
-	public ResponseEntity<List<ArticleUserDto>> getCartItems(@PathVariable String email){
+	public ResponseEntity<List<ArticleUserDto>> getCartItems(@PathVariable String email) {
 		var cartItems = cartItemService.findAllCartItemsByUser(email);
-		if(cartItems == null) {
+		if (cartItems == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return new ResponseEntity<List<ArticleUserDto>>(cartItems, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/panier/add")
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public CartItem addCartItem(@RequestBody CreateCartItem cartItem){
+	public CartItem addCartItem(@RequestBody CreateCartItem cartItem) {
 		return cartItemService.saveCartItem(cartItem);
 	}
-	
+
 	@PutMapping("/panier/update")
-	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<Void> updateCartItems(@RequestBody List<ArticleUserDto> cartItems){
+	@Secured({ "ROLE_ADMIN" })
+	public ResponseEntity<Void> updateCartItems(@RequestBody List<ArticleUserDto> cartItems) {
 		Boolean c = cartItemService.update(cartItems);
-		if(c == false) {
+		if (c == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.accepted().build();
 	}
-	
+
 	@DeleteMapping("/{id}")
-	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<Void> deleteCartItem(@PathVariable int id){
+	@Secured({ "ROLE_ADMIN" })
+	public ResponseEntity<Void> deleteCartItem(@PathVariable int id) {
 		var c = cartItemService.remove(id);
-		if(c == false) {
+		if (c == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.noContent().build();

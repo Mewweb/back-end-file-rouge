@@ -1,15 +1,11 @@
 package com.m2l.m2l.entities;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,27 +40,27 @@ public class Book {
 
 	@NotEmpty
 	@NonNull
-	@Size(min=2, max=200)
+	@Size(min = 2, max = 200)
 	String title;
 
 	@NonNull
 	@NotEmpty
 	@Lob
-	@Size(min=20)
-	@Column(columnDefinition= "TEXT")
+	@Size(min = 20)
+	@Column(columnDefinition = "TEXT")
 	String synopsis;
 
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=100)
+	@Size(min = 3, max = 100)
 	String style;
 
-	@DateTimeFormat(pattern="dd-MM-yyyy")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	LocalDate date;
 
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=255)
+	@Size(min = 3, max = 255)
 	String image;
 
 	@Default
@@ -73,20 +69,11 @@ public class Book {
 	@Default
 	LocalDateTime editDate = LocalDateTime.now();
 
-	String imageName;
-	String imageType;
-	
-	@Lob
-	byte[] imageDate;
-	
 	@JsonIgnoreProperties("books")
 	@NonNull
 	@ManyToMany
-	//@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	@JoinTable(name="book_authors", 
-		joinColumns = @JoinColumn(name="book_id"),
-		inverseJoinColumns = @JoinColumn(name="author_id")
-	)
+	// @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	List<Author> authors;
 
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)

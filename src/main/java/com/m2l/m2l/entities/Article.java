@@ -3,9 +3,7 @@ package com.m2l.m2l.entities;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,12 +33,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Article {
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 
 	@NonNull
 	@NotEmpty
-	@Size(min=1, max=50)
+	@Size(min = 1, max = 50)
 	String title;
 
 	@NonNull
@@ -60,7 +58,7 @@ public class Article {
 
 	@NonNull
 	@NotEmpty
-	@Size(min=10,max=14)
+	@Size(min = 10, max = 14)
 	String number_isbn;
 
 	@NonNull
@@ -95,11 +93,11 @@ public class Article {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	Book book;
-	
+
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("article")
 	List<Article_User> article_Users = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("article")
 	List<CartItem> cartItems = new ArrayList<>();

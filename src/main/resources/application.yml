@@ -36,7 +36,7 @@ rsa:
   public-key: classpath:jwt/public.pem
   private-key: classpath:jwt/private.pem
 
-images.path: 'C:/Users/mewen/eclipse-workspace/m2l/public/img/'
+images.path: 'C:/Users/mewen/OneDrive/Documents/back-end-file-rouge/public/img/'
 
 logging:
   level:

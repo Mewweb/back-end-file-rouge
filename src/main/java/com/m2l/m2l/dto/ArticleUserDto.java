@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleUserDto {
+public class ArticleUserDto{
 	Integer id;
 	Article article;
 	Integer quantity;

@@ -10,15 +10,15 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class FactureServiceImpl implements FactureService{
+public class FactureServiceImpl implements FactureService {
 	@Autowired
 	private FactureRepository factureRepository;
-	
+
 	@Override
-	public List<Facture> findAll(){
+	public List<Facture> findAll() {
 		return factureRepository.findAll();
 	}
-	
+
 	@Override
 	public Facture save(@Valid Facture facture) {
 		return factureRepository.save(facture);

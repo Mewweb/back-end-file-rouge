@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameBook {
+public class NameBook{
 	Integer id;
 	String title;
 }

@@ -3,7 +3,6 @@ package com.m2l.m2l.services;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -20,13 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class TokenServiceImpl implements TokenService {
-	@Autowired
+    @Autowired
     private JwtEncoder encoder;
-	@Autowired
+    @Autowired
     private JwtDecoder decoder;
-	@Autowired
+    @Autowired
     private UserRepository userRepository;
-    
+
     @Override
     public String generateAccessTokenFromAuthentication(String email, String roles) {
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
@@ -39,6 +38,7 @@ public class TokenServiceImpl implements TokenService {
         var jeton = encoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
         return jeton;
     }
+
     // pas d'information non nécessaire dans le refreshToken (pas le rôle)
     @Override
     public String generateRefreshToken(String email) {
@@ -61,10 +61,9 @@ public class TokenServiceImpl implements TokenService {
             log.error("Demande de raffraichissement refusé pour  {}", email);
             throw new BadCredentialsException("Utilisateur inexistant");
         }
-        var role = user.getRole().name();   
+        var role = user.getRole().name();
         return new JwtResponseDto(
                 generateAccessTokenFromAuthentication(email, role),
-                generateRefreshToken(email)
-        );
-    }   
+                generateRefreshToken(email));
+    }
 }

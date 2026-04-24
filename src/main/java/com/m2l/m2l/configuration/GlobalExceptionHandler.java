@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ProblemDetail> catchAny(Exception ex){
+	public ResponseEntity<ProblemDetail> catchAny(Exception ex) {
 		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(pd);
 	}
-	
+
 	@ExceptionHandler(BadRequestException.class)
-	public ResponseEntity<ProblemDetail> catchBadRequest(BadRequestException ex){
+	public ResponseEntity<ProblemDetail> catchBadRequest(BadRequestException ex) {
 		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
 	}

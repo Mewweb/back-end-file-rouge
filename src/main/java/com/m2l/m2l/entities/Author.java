@@ -1,10 +1,8 @@
 package com.m2l.m2l.entities;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.m2l.m2l.enums.Langage;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,20 +32,20 @@ public class Author {
 
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=50)
+	@Size(min = 3, max = 50)
 	String lastname;
 
 	@NonNull
 	@NotEmpty
-	@Size(min=3, max=50)
+	@Size(min = 3, max = 50)
 	String firstname;
 
 	@NonNull
 	Langage langue;
 
-	//@ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
-    @ManyToMany
-    @JoinTable(name="book_authors", joinColumns = @JoinColumn(name="author_id"), inverseJoinColumns = @JoinColumn(name="book_id"))
+	// @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+	@ManyToMany
+	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	@JsonIgnoreProperties("authors") // évite la récursion infinie
-    List<Book> books;	
+	List<Book> books;
 }

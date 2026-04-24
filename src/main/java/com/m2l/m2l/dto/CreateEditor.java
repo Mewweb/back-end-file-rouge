@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateEditor {
+public class CreateEditor{
 	Integer id;
 	String title;
 	String description;
