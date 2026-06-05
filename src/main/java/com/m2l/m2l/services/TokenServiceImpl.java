@@ -39,7 +39,6 @@ public class TokenServiceImpl implements TokenService {
         return jeton;
     }
 
-    // pas d'information non nécessaire dans le refreshToken (pas le rôle)
     @Override
     public String generateRefreshToken(String email) {
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
@@ -58,7 +57,6 @@ public class TokenServiceImpl implements TokenService {
         var email = decodeJwt.getSubject();
         var user = userRepository.findByEmail(email);
         if (user == null) {
-            log.error("Demande de raffraichissement refusé pour  {}", email);
             throw new BadCredentialsException("Utilisateur inexistant");
         }
         var role = user.getRole().name();

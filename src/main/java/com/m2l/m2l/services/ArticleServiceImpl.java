@@ -31,6 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<Article> findAll() {
+		
 		return articleRepository.findAll();
 	}
 
@@ -148,7 +149,6 @@ public class ArticleServiceImpl implements ArticleService {
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.m2l.m2l;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,17 +14,17 @@ import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.entities.Editor;
-import com.m2l.m2l.entities.Sale;
 import com.m2l.m2l.entities.User;
 import com.m2l.m2l.enums.Langage;
 import com.m2l.m2l.enums.Role;
-import com.m2l.m2l.repositories.UserRepository;
 import com.m2l.m2l.services.ArticleService;
 import com.m2l.m2l.services.AuthorService;
 import com.m2l.m2l.services.BookService;
 import com.m2l.m2l.services.CartItemService;
 import com.m2l.m2l.services.EditorService;
 import com.m2l.m2l.services.SaleService;
+import com.m2l.m2l.services.UserService;
+
 import lombok.AllArgsConstructor;
 
 @SpringBootApplication
@@ -38,9 +37,8 @@ public class M2lApplication implements ApplicationRunner {
 	private ArticleService articleService;
 	private EditorService editorService;
 	private CartItemService cartItemService;
-	private UserRepository userRepository;
+	private UserService userService;
 	private PasswordEncoder encoder;
-	private SaleService saleService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(M2lApplication.class, args);
@@ -250,7 +248,7 @@ public class M2lApplication implements ApplicationRunner {
 				.quantity(1)
 				.build();
 
-		userRepository.save(user);
+		userService.save(user);
 
 		cartItemService.save(cartItem);
 		cartItemService.save(cartItem1);

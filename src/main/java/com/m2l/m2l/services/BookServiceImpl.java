@@ -33,9 +33,6 @@ public class BookServiceImpl implements BookService {
 	private BookRepository bookRepository;
 	@Autowired
 	private AuthorRepository authorRepository;
-	@Autowired
-	private ArticleRepository articleRepository;
-	@Autowired
 	private Environment env;
 
 	@Override
@@ -142,7 +139,6 @@ public class BookServiceImpl implements BookService {
 			book.setDate(request.getDate());
 			book.setAuthors(authors);
 			return bookRepository.save(book);
-			// return bookRepository.save(book);
 		} catch (Exception e) {
 			return null;
 		}

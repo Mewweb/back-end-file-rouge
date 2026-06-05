@@ -23,5 +23,4 @@ public interface EditorRepository extends JpaRepository<Editor, Integer> {
 			LOWER(e.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			""")
 	Page<Editor> selectEditorByTitle(@Param("keyword") String keyword, Pageable pageable);
-
 }

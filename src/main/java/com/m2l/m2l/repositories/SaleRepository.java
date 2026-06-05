@@ -23,5 +23,4 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                         SELECT DISTINCT s.addDate, COUNT(s.article) FROM Sale s WHERE :startDate <= s.addDate AND :endDate >= s.addDate GROUP BY MONTH(s.addDate)
                         """)
         List<SaleDateNameArticle> test(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
 }

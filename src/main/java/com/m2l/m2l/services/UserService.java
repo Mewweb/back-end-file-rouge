@@ -17,5 +17,4 @@ public interface UserService {
 	UserDataDto getUser(String email);
 
 	User updatePassword(PasswordUser passwords);
-	// List<ArticleUserDto> findAllArticlesByUser(String email);
 }
