@@ -23,5 +23,4 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 			LOWER(b.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			""")
 	Page<Book> selectBookByTitle(@Param("keyword") String keyword, Pageable pageable);
-
 }

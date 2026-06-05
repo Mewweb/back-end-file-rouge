@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.m2l.m2l.dto.CreateEditor;
@@ -65,7 +64,7 @@ public class EditorController {
 	@PostMapping
 	@Secured({ "ROLE_ADMIN" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> addEditor(@RequestPart CreateEditor editor) {
+	public ResponseEntity<?> addEditor(@RequestBody CreateEditor editor) {
 		try {
 			Editor createEditor = editorService.createEditor(editor);
 			return new ResponseEntity<>(createEditor, HttpStatus.CREATED);

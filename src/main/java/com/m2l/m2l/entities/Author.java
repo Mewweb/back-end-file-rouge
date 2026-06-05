@@ -43,7 +43,6 @@ public class Author {
 	@NonNull
 	Langage langue;
 
-	// @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
 	@ManyToMany
 	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	@JsonIgnoreProperties("authors") // évite la récursion infinie

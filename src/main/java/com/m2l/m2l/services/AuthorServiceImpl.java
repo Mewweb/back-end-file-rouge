@@ -23,7 +23,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public Page<Author> findAll() {
-		Page<Author> authors = authorRepository.selectNameAuthor(PageRequest.of(0, 9));
+		Page<Author> authors = authorRepository.selectNameAuthor(PageRequest.of(0, 5));
 		return authors;
 	}
 
@@ -56,7 +56,6 @@ public class AuthorServiceImpl implements AuthorService {
 		if (author != null) {
 			author.getBooks().clear();
 			authorRepository.delete(author);
-			// authorRepository.delete(author);
 			return true;
 		}
 		return false;
@@ -76,8 +75,19 @@ public class AuthorServiceImpl implements AuthorService {
 		createAuthor.setFirstname(author.getFirstname());
 		createAuthor.setLangue(author.getLangue());
 		return createAuthor;
-		// return createAuthor(author.getLastname(), author.getFirstname(),
-		// Langage.valueOf(author.getLangue()));
+	}
+
+	public Author save(CreateAuthor author) {
+		try {
+			Author a = Author.builder()
+					.lastname(author.getLastname())
+					.firstname(author.getFirstname())
+					.langue(author.getLangue())
+					.build();
+			return authorRepository.save(a);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override

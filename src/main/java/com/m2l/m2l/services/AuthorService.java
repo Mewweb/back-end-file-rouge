@@ -14,6 +14,8 @@ public interface AuthorService {
 
 	Author update(Author author);
 
+	Author save(CreateAuthor author);
+
 	List<Author> saveAll(List<Author> authors);
 
 	Page<Author> findAllWithOffset(int offset);

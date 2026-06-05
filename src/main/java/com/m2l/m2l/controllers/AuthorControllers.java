@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.m2l.m2l.dto.CreateAuthor;
 import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.services.AuthorService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/author")
@@ -43,6 +45,17 @@ public class AuthorControllers {
 		return new ResponseEntity<CreateAuthor>(a, HttpStatus.OK);
 	}
 
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	@Secured({"ROLE_ADMIN"})
+	public ResponseEntity<Author> postMethodName(@RequestBody CreateAuthor author) {
+		var a = authorService.save(author);
+		if(a == null){
+			return ResponseEntity.badRequest().build();
+		}
+		return new ResponseEntity<Author>(a, HttpStatus.CREATED);
+	}
+	
 	@DeleteMapping("/{id}")
 	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteAuthor(@PathVariable int id) {

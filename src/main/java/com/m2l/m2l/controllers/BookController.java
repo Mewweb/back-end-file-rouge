@@ -73,7 +73,6 @@ public class BookController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	@GetMapping("/search/{keyword}")
@@ -90,7 +89,7 @@ public class BookController {
 			Book createBook = bookService.createBook(book, imageFile);
 			return new ResponseEntity<>(createBook, HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

@@ -31,21 +31,14 @@ public class JwtController {
 
     @PostMapping("/authenticate")
     public JwtResponseDto authenticate(@RequestBody UserRequestDto userDto) {
-        log.info("Demande de jeton avec {} ", userDto.getGrantType().name());
         if (userDto.getGrantType().name().equalsIgnoreCase("password")) {
-            log.info("Demande de jeton de la part de {}", userDto.getEmail());
             User user = userService.checkUser(userDto.getEmail(), userDto.getPassword());
-            log.info("Accès autorisé pour l'utilisateur {}", userDto.getEmail());
             var accessToken = tokenService.generateAccessTokenFromAuthentication(user.getEmail(),
                     user.getRole().name());
-            log.info("Jeton d'accès {} pour {}", accessToken, userDto.getEmail());
             var refreshToken = tokenService.generateRefreshToken(user.getEmail());
-            log.info("Jeton de rafraichissement {} pour {}", refreshToken, userDto.getEmail());
             return new JwtResponseDto(accessToken, refreshToken);
         } else if (userDto.getGrantType().name().equalsIgnoreCase("refresh_token")) {
             var tokens = tokenService.generateTokensFromRefreshToken(userDto.getRefreshToken());
-            log.info("Jeton d'accès {}", tokens.getAccessToken());
-            log.info("Jeton de rafraichissement {}", tokens.getRefreshToken());
             return tokens;
         }
         return null;

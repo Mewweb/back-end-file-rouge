@@ -72,7 +72,6 @@ public class Book {
 	@JsonIgnoreProperties("books")
 	@NonNull
 	@ManyToMany
-	// @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	List<Author> authors;
 
