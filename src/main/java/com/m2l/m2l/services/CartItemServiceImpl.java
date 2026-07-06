@@ -37,8 +37,7 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	public CartItem saveCartItem(CreateCartItem newCartItem) {
-		User user = userRepository.findById(newCartItem.getUser())
-				.orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+		User user = userRepository.findByEmail(newCartItem.getUser());
 		Article article = articleRepository.findById(newCartItem.getArticle())
 				.orElseThrow(() -> new RuntimeException("Article non trouvé"));
 		CartItem cartItem = new CartItem();

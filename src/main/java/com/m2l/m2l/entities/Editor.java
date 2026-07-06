@@ -1,7 +1,6 @@
 package com.m2l.m2l.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -51,5 +50,5 @@ public class Editor {
 
 	@OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("editor")
-	List<Article> articles = new ArrayList<>();
+	List<Article> articles;
 }

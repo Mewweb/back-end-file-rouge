@@ -1,12 +1,14 @@
 package com.m2l.m2l.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -38,9 +40,11 @@ public class Facture {
 	@Size(min = 1, max = 255)
 	String pdf;
 
-	@ManyToOne
-	@NonNull
-	@JsonIgnoreProperties("commandes")
-	@JoinColumn(nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("facture")
+	@JoinColumn(
+		name = "commande_id", 
+		referencedColumnName = "id"
+	)
 	Commande commande;
 }

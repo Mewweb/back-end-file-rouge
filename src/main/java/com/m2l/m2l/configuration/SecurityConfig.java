@@ -49,7 +49,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .cors(c -> c.configurationSource(corsConfigurationSource())) // pour pouvoir recevoir des requêtes d'un nom de domaine de différent
+                .cors(c -> c.configurationSource(corsConfigurationSource())) 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
@@ -94,7 +94,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedOrigin("http://localhost:3000"); // Live server
+        configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);

@@ -1,7 +1,6 @@
 package com.m2l.m2l.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
@@ -33,7 +32,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Article {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(
+		strategy = GenerationType.IDENTITY
+	)
 	Integer id;
 
 	@NonNull
@@ -96,9 +97,13 @@ public class Article {
 
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("article")
-	List<Article_User> article_Users = new ArrayList<>();
+	List<Article_User> article_Users;
 
-	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(
+		mappedBy = "article", 
+		cascade = CascadeType.ALL, 
+		orphanRemoval = true
+	)
 	@JsonIgnoreProperties("article")
-	List<CartItem> cartItems = new ArrayList<>();
+	List<CartItem> cartItems;
 }

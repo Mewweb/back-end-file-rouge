@@ -2,7 +2,6 @@ package com.m2l.m2l.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -70,12 +69,19 @@ public class Book {
 	LocalDateTime editDate = LocalDateTime.now();
 
 	@JsonIgnoreProperties("books")
-	@NonNull
 	@ManyToMany
-	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	@JoinTable(
+		name = "book_authors", 
+		joinColumns = @JoinColumn(name = "book_id"), 
+		inverseJoinColumns = @JoinColumn(name = "author_id")
+	)
 	List<Author> authors;
 
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(
+		mappedBy = "book", 
+		cascade = CascadeType.ALL, 
+		orphanRemoval = true
+	)
 	@JsonIgnoreProperties("book")
-	private List<Article> articles = new ArrayList<>();
+	private List<Article> articles;
 }

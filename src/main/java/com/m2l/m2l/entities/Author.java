@@ -44,7 +44,11 @@ public class Author {
 	Langage langue;
 
 	@ManyToMany
-	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-	@JsonIgnoreProperties("authors") // évite la récursion infinie
+	@JoinTable(
+		name = "book_authors", 
+		joinColumns = @JoinColumn(name = "author_id"), 
+		inverseJoinColumns = @JoinColumn(name = "book_id")
+	)
+	@JsonIgnoreProperties("authors")
 	List<Book> books;
 }
