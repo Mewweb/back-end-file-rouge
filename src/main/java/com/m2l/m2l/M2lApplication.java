@@ -2,6 +2,7 @@ package com.m2l.m2l;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,17 +15,17 @@ import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
 import com.m2l.m2l.entities.CartItem;
 import com.m2l.m2l.entities.Editor;
+import com.m2l.m2l.entities.Sale;
 import com.m2l.m2l.entities.User;
 import com.m2l.m2l.enums.Langage;
 import com.m2l.m2l.enums.Role;
+import com.m2l.m2l.repositories.UserRepository;
 import com.m2l.m2l.services.ArticleService;
 import com.m2l.m2l.services.AuthorService;
 import com.m2l.m2l.services.BookService;
 import com.m2l.m2l.services.CartItemService;
 import com.m2l.m2l.services.EditorService;
 import com.m2l.m2l.services.SaleService;
-import com.m2l.m2l.services.UserService;
-
 import lombok.AllArgsConstructor;
 
 @SpringBootApplication
@@ -37,7 +38,7 @@ public class M2lApplication implements ApplicationRunner {
 	private ArticleService articleService;
 	private EditorService editorService;
 	private CartItemService cartItemService;
-	private UserService userService;
+	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
 	public static void main(String[] args) {
@@ -48,42 +49,42 @@ public class M2lApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 
 		Author author = Author.builder()
-				.lastname("Asimov")
-				.firstname("Isaac")
+				.lastname("Doe")
+				.firstname("John")
 				.langue(Langage.DE)
 				.build();
 		Author author1 = Author.builder()
-				.lastname("K Dick")
-				.firstname("Philip")
+				.lastname("Roe")
+				.firstname("Richard")
 				.langue(Langage.ES)
 				.build();
 		Author author2 = Author.builder()
-				.lastname("Doe")
-				.firstname("John")
+				.lastname("Blow")
+				.firstname("Joe")
 				.langue(Langage.GB)
 				.build();
 		Author author3 = Author.builder()
-				.lastname("Dupont")
-				.firstname("Martin")
+				.lastname("Doe")
+				.firstname("Johnna")
 				.langue(Langage.FR)
 				.build();
 
 		authorService.saveAll(List.of(author, author1, author2, author3));
 
 		Editor editor = Editor.builder()
-				.title("J'ai lu")
+				.title("Edito")
 				.description("Lorem ipsum dolor sit amet consectetur adipisicing elit.")
 				.date(LocalDate.parse("2018-12-07"))
 				.build();
 
 		Editor editor1 = Editor.builder()
-				.title("Le livre de poche")
+				.title("Livro")
 				.description("Lorem ipsum dolor sit amet consectetur adipisiing elit.")
 				.date(LocalDate.parse("2019-05-24"))
 				.build();
 
 		Editor editor2 = Editor.builder()
-				.title("10/18")
+				.title("Formatech")
 				.description("Lorem ipsum dolor sit amet consectetur adipisicing elit.")
 				.date(LocalDate.parse("2020-05-28"))
 				.build();
@@ -91,7 +92,7 @@ public class M2lApplication implements ApplicationRunner {
 		editorService.saveAll(List.of(editor, editor1, editor2));
 
 		Book book = Book.builder()
-				.title("Les robots")
+				.title("Lorem ipsum")
 				.synopsis(
 						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Elit adipisicing consectetur amet sit dolor ipsum lorem.")
 				.style("Science-fiction")
@@ -101,30 +102,30 @@ public class M2lApplication implements ApplicationRunner {
 				.build();
 
 		Book book1 = Book.builder()
-				.title("Fondations")
+				.title("Dolor sit amet")
 				.synopsis(
 						"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi erchitecto beatae vitae dicta sunt explicabo.")
-				.style("Science-fiction")
+				.style("Fullstack")
 				.date(LocalDate.parse("1962-12-07"))
 				.image("5e914afc-713a-4724-9025-a3d8bf30b7d7.png")
 				.authors(List.of(author))
 				.build();
 
 		Book book2 = Book.builder()
-				.title("Les androides rêvent-t'il de moutons électriques")
+				.title("Consectetur adipisicing")
 				.synopsis(
 						"Neque porro quisuqam est, qui dolorem ipsum quia dolor sit emet consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.")
-				.style("Science-fiction")
+				.style("Back-end")
 				.date(LocalDate.parse("1965-12-07"))
 				.image("7895781a-e7b2-4ba6-a6f4-0141f8665b27.png")
 				.authors(List.of(author1))
 				.build();
 
 		Book book3 = Book.builder()
-				.title("Lorem ipsum")
+				.title("Hello world")
 				.synopsis(
 						"Sed do uiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-				.style("Drame")
+				.style("Front-end")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("a767e431-7a53-49f4-be13-d46aefd9e578.png")
 				.authors(List.of(author2))
@@ -225,32 +226,28 @@ public class M2lApplication implements ApplicationRunner {
 					.build());
 		}
 
-		User user = User.builder()
-				.lastname("Doe")
-				.firstname("John")
+		User admin = User.builder()
+				.lastname("Admin")
+				.firstname("Admin")
 				.phone_number("06 05 04 03 02")
-				.email("test@test.fr")
-				.password(encoder.encode("test@test.fr"))
+				.email("admin@admin.fr")
+				.password(encoder.encode("admin@admin.fr"))
 				.billing_address("66 rue des avenues")
 				.delivery_address("44 rue des avenues")
 				.role(Role.ADMIN)
 				.build();
-
-		CartItem cartItem = CartItem.builder()
-				.user(user)
-				.article(article1)
-				.quantity(2)
+		User user = User.builder()
+				.lastname("user")
+				.firstname("user")
+				.phone_number("02 03 04 05 06")
+				.email("user@user.fr")
+				.password(encoder.encode("user@user.fr"))
+				.billing_address("66 rue des avenues")
+				.delivery_address("44 rue des avenues")
+				.role(Role.USER)
 				.build();
 
-		CartItem cartItem1 = CartItem.builder()
-				.user(user)
-				.article(article2)
-				.quantity(1)
-				.build();
-
-		userService.save(user);
-
-		cartItemService.save(cartItem);
-		cartItemService.save(cartItem1);
+		userRepository.save(user);
+		userRepository.save(admin);
 	}
 }

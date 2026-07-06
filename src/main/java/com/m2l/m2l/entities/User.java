@@ -1,6 +1,5 @@
 package com.m2l.m2l.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.m2l.m2l.enums.Role;
 import jakarta.persistence.CascadeType;
@@ -70,11 +69,11 @@ public class User {
 	Role role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Article_User> article_Users = new ArrayList<>();
+	List<Article_User> article_Users;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<CartItem> cartItems = new ArrayList<>();
+	List<CartItem> cartItems;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Commande> commandes = new ArrayList<>();
+	List<Commande> commandes;
 }

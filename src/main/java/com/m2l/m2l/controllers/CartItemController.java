@@ -35,14 +35,12 @@ public class CartItemController {
 	}
 
 	@PostMapping("/panier/add")
-	@Secured({ "ROLE_ADMIN" })
 	@ResponseStatus(HttpStatus.CREATED)
 	public CartItem addCartItem(@RequestBody CreateCartItem cartItem) {
 		return cartItemService.saveCartItem(cartItem);
 	}
 
 	@PutMapping("/panier/update")
-	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> updateCartItems(@RequestBody List<ArticleUserDto> cartItems) {
 		Boolean c = cartItemService.update(cartItems);
 		if (c == false) {
@@ -52,7 +50,6 @@ public class CartItemController {
 	}
 
 	@DeleteMapping("/{id}")
-	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteCartItem(@PathVariable int id) {
 		var c = cartItemService.remove(id);
 		if (c == false) {

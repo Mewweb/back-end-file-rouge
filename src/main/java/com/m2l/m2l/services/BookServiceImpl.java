@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.m2l.m2l.dto.CreateBook;
 import com.m2l.m2l.entities.Author;
 import com.m2l.m2l.entities.Book;
-import com.m2l.m2l.repositories.ArticleRepository;
 import com.m2l.m2l.repositories.AuthorRepository;
 import com.m2l.m2l.repositories.BookRepository;
 import jakarta.validation.Valid;

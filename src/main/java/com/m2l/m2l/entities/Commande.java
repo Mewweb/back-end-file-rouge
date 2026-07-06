@@ -1,7 +1,6 @@
 package com.m2l.m2l.entities;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
@@ -12,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -51,9 +51,13 @@ public class Commande {
 
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("commande")
-	List<Article_commande> article_commandes = new ArrayList<>();
+	List<Article_commande> article_commandes;
 
-	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("commande")
-	List<Facture> factures = new ArrayList<>();
+	@JoinColumn(
+		name = "facture_id", 
+		referencedColumnName = "id"
+	)
+	Facture facture;
 }

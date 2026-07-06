@@ -30,7 +30,7 @@ public class TokenServiceImpl implements TokenService {
     public String generateAccessTokenFromAuthentication(String email, String roles) {
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(Instant.now())
-                .issuer("spring-ws-jwt")
+                .issuer("back-end-m2l")
                 .expiresAt(Instant.now().plusSeconds(2 * 60))
                 .claim("role", roles)
                 .subject(email)
@@ -43,7 +43,7 @@ public class TokenServiceImpl implements TokenService {
     public String generateRefreshToken(String email) {
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(Instant.now())
-                .issuer("spring-ws-jwt")
+                .issuer("back-end-m2l")
                 .expiresAt(LocalDateTime.now().plusYears(1).toInstant(ZoneOffset.ofHours(0)))
                 .subject(email)
                 .build();

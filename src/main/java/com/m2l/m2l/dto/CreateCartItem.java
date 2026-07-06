@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCartItem{
-	Integer user;
+	String user;
 	Integer quantity;
 	Integer article;
 }
