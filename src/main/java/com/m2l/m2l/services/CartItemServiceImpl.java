@@ -61,6 +61,7 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	public Boolean update(List<ArticleUserDto> cartItems) {
+		System.out.println("jfjfjf");
 		for (ArticleUserDto element : cartItems) {
 			Optional<CartItem> testCartItem = cartItemRepository.findById(element.getId());
 			testCartItem.get().setQuantity(element.getQuantity());
