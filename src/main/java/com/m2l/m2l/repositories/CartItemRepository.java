@@ -11,4 +11,9 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
 			SELECT DISTINCT c FROM CartItem c JOIN c.article a JOIN c.user u WHERE u.email = :email
 			""")
 	List<CartItem> findCartItemByUser(@Param("email") String email);
+
+	@Query("""
+			SELECT DISTINCT c FROM CartItem c JOIN c.user u JOIN c.article a WHERE u.email = :email AND a.id = :article
+			""")
+	CartItem findCartItem(@Param("email") String email, @Param("article") Integer article);
 }

@@ -95,7 +95,7 @@ public class M2lApplication implements ApplicationRunner {
 				.title("Lorem ipsum")
 				.synopsis(
 						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Elit adipisicing consectetur amet sit dolor ipsum lorem.")
-				.style("Science-fiction")
+				.style("Front-end")
 				.date(LocalDate.parse("2018-12-07"))
 				.image("b76453da-5a87-4eaf-b803-8cb40eb3cf2e.png")
 				.authors(List.of(author, author1))
