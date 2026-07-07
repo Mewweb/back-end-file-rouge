@@ -93,7 +93,6 @@ public class ArticleController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Article> addArticle(@RequestBody CreateArticle article) {
 		var a = articleService.createArticle(article);
 		if (a == null) {

@@ -142,10 +142,12 @@ public class ArticleServiceImpl implements ArticleService {
 					.price(request.getPrice())
 					.stock(request.getStock())
 					.editor(editor)
+					.active(true)
 					.book(book)
 					.build();
 			return articleRepository.save(article);
 		} catch (Exception e) {
+
 			return null;
 		}
 	}
