@@ -21,8 +21,8 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 			OR LOWER(u.lastname) LIKE LOWER(CONCAT('%', :keyword, '%'))
 			OR LOWER(u.firstname) LIKE LOWER(CONCAT('%', :keyword,'%'))
 			OR LOWER(b.style) LIKE LOWER(CONCAT('%', :keyword, '%'))
-			OR LOWER(a.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
-			)""")
+			OR LOWER(a.title) LIKE LOWER(CONCAT('%', :keyword, '%')) 
+			) ORDER BY a.addDate ASC""")
 	Page<Article> searchActiveAndBooksByTitleOrEditorOrStyleOrAuthors(
 			@Param("active") Boolean active,
 			@Param("keyword") String keyword,
@@ -30,7 +30,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
 	@Query("""
 			SELECT DISTINCT a FROM Article a
-			ORDER BY a.addDate DESC
+			ORDER BY a.addDate ASC
 				""")
 	Page<Article> findAllByAddDate(Pageable pageable);
 }
